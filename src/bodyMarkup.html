@@ -1,0 +1,211 @@
+
+<nav>
+  <div class="brand">
+    <img id="logoImg" src="" alt="ETDA / กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม">
+  </div>
+  <div class="navlinks">
+    <a href="#overview">ภาพรวม</a>
+    <a href="#region">ภูมิภาค</a>
+    <a href="#channels">ช่องทางขาย</a>
+    <a href="#c2x">C2B/C2C/C2G</a>
+    <a href="#dmi">Digital Maturity</a>
+    <a href="#ops">การชำระ/ขนส่ง</a>
+    <a href="#products">สินค้า</a>
+    <a href="#impact">DMI x รายได้</a>
+    <a href="#demo">ผู้ตอบแบบสำรวจ</a>
+  </div>
+</nav>
+
+<div class="filterbar">
+  <div class="flabel">⚲ ตัวกรอง</div>
+  <div class="fgroup"><span>ภูมิภาค</span>
+    <select id="fRegion"><option value="-1">ทั้งหมด</option></select>
+  </div>
+  <div class="fgroup"><span>เขตพื้นที่</span>
+    <select id="fUrban">
+      <option value="-1">ทั้งหมด</option>
+      <option value="1">ในเขตเทศบาล</option>
+      <option value="0">นอกเขตเทศบาล</option>
+    </select>
+  </div>
+  <div class="fgroup"><span>Generation</span>
+    <select id="fGen"><option value="-1">ทั้งหมด</option></select>
+  </div>
+  <div class="fgroup"><span>สถานะจดทะเบียน e-Commerce</span>
+    <select id="fReg">
+      <option value="-1">ทั้งหมด</option>
+      <option value="1">จดทะเบียนแล้ว</option>
+      <option value="0">ยังไม่จดทะเบียน</option>
+    </select>
+  </div>
+  <button id="fReset">ล้างตัวกรองทั้งหมด</button>
+  <div class="fcount">แสดงผล <b id="fCountShown">3,473</b> จาก <b>3,473</b> ราย</div>
+</div>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="eyebrow">Household E-Commerce Survey · 2569</div>
+    <h1>สถานะพาณิชย์อิเล็กทรอนิกส์และการเปลี่ยนผ่านด้านดิจิทัล<em>ของผู้ประกอบการภาคครัวเรือน ประจำปี 2569</em></h1>
+    <p>สรุปผลจากผู้ตอบแบบสำรวจ 3,473 ราย ทั่วประเทศไทย ครอบคลุมพฤติกรรมการขายออนไลน์/ออฟไลน์ โครงสร้างรายได้ ช่องทางชำระเงิน-ขนส่ง และระดับความพร้อมด้านดิจิทัล (Digital Maturity Index) — ใช้ตัวกรองด้านบนเพื่อดูข้อมูลแยกตามภูมิภาค เขตพื้นที่ Generation และสถานะการจดทะเบียน</p>
+
+    <div class="kpi-row" id="overview">
+      <div class="kpi"><div class="label">ผู้ตอบแบบสำรวจ</div><div class="value" id="kpiN">3,473 <span class="unit">ราย</span></div><div class="sub" id="kpiNSub">ทั่วประเทศ · 7 ภูมิภาค</div></div>
+      <div class="kpi"><div class="label">รายได้เฉลี่ยต่อเดือน</div><div class="value" id="kpiRev">86,794 <span class="unit">บาท</span></div><div class="sub">รวมออนไลน์ + ออฟไลน์</div></div>
+      <div class="kpi"><div class="label">รายได้ออนไลน์เฉลี่ย</div><div class="value" id="kpiOrev">30,178 <span class="unit">บาท</span></div><div class="sub" id="kpiOrevSub">คิดเป็น 34.0% ของรายได้รวม</div></div>
+      <div class="kpi"><div class="label">จดทะเบียนพาณิชย์อิเล็กทรอนิกส์</div><div class="value" id="kpiReg">27.5 <span class="unit">%</span></div><div class="sub" id="kpiRegSub">จดทะเบียนพาณิชย์ทั่วไป 40.1%</div></div>
+      <div class="kpi"><div class="label">Digital Maturity Index</div><div class="value" id="kpiDmi">2.11 <span class="unit">/ 4.0</span></div><div class="sub" id="kpiDmiSub">เฉลี่ย 5 มิติ</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section id="region">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <div><h2>รายได้และจำนวนผู้ตอบแบบสำรวจ แยกตามภูมิภาค</h2>
+      <div class="sec-desc" id="regionDesc">ภาคกลางมีรายได้เฉลี่ยต่อเดือนสูงสุด ขณะที่ภาคตะวันออกเฉียงเหนือมีจำนวนผู้ตอบแบบสำรวจมากที่สุด</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>รายได้เฉลี่ยต่อเดือน (บาท)</h3><div class="hint">รวม vs. เฉพาะออนไลน์ · เรียงจากสูงไปต่ำ</div><div class="chart-wrap" style="height:340px;"><canvas id="chartRegionRev"></canvas></div></div>
+      <div class="card"><h3>สัดส่วนผู้ตอบแบบสำรวจ</h3><div class="hint">แยกตามภูมิภาค (ราย) · % ของยอดที่กรองแล้ว</div><div class="chart-wrap" style="height:340px;"><canvas id="chartRegionCount"></canvas></div></div>
+    </div>
+  </section>
+
+  <section id="channels">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <div><h2>ช่องทางการขาย: ออนไลน์ vs. ออฟไลน์</h2>
+      <div class="sec-desc">E-Marketplace และ Social Media ครองสัดส่วนรายได้ออนไลน์ ส่วนออฟไลน์ยังพึ่งพาหน้าร้านเป็นหลัก</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>สัดส่วนรายได้ออนไลน์ แยกแพลตฟอร์ม</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออนไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOnlineMix"></canvas></div></div>
+      <div class="card"><h3>สัดส่วนรายได้ออฟไลน์ แยกช่องทาง</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออฟไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOfflineMix"></canvas></div></div>
+    </div>
+  </section>
+
+  <section id="c2x">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <div><h2>สัดส่วนลูกค้า C2C / C2B / C2G</h2>
+      <div class="sec-desc" id="c2xDesc">ผู้ขายภาคครัวเรือนขายให้ผู้บริโภคทั่วไป (C2C) เป็นหลัก รองลงมาคือขายให้ธุรกิจ (C2B) และหน่วยงานรัฐ (C2G)</div></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>สัดส่วนมูลค่าตามประเภทลูกค้า</h3><div class="hint">เฉลี่ยจากสัดส่วนรายได้ของผู้ตอบแต่ละราย</div><div class="chart-wrap" style="height:300px;"><canvas id="chartC2x"></canvas></div></div>
+      <div class="card"><h3>รายได้เฉลี่ยต่อเดือน แยกตามประเภทลูกค้า</h3><div class="hint">เฉพาะผู้ที่มีรายได้จากประเภทนั้น ๆ (บาท)</div><div class="chart-wrap" style="height:300px;"><canvas id="chartC2xRev"></canvas></div></div>
+    </div>
+  </section>
+
+  <section id="dmi">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <div><h2>Digital Maturity Index (DMI)</h2>
+      <div class="sec-desc">คะแนนเฉลี่ยความพร้อมด้านดิจิทัล 5 มิติ จากคะแนนเต็ม 4.0</div></div>
+    </div>
+    <div class="level-legend" id="dmiLevelLegend"></div>
+    <div class="dmi-hero">
+      <div class="gauge-box">
+        <div class="chart-wrap" style="width:220px; height:220px;"><canvas id="chartGauge"></canvas></div>
+        <div class="gauge-score" id="gaugeScore">2.11<span class="of"> / 4.0</span></div>
+        <div class="gauge-label">ค่าเฉลี่ยรวมทุกมิติ · <span id="gaugeLevelLabel"></span></div>
+      </div>
+      <div><h3 style="margin-bottom:14px;">คะแนนรายมิติ</h3><div class="dmi-dims" id="dmiDims"></div></div>
+    </div>
+  </section>
+
+  <section id="ops">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <div><h2>ช่องทางชำระเงิน ขนส่ง และอุปสรรคการปรับตัวดิจิทัล</h2>
+      <div class="sec-desc">ตอบได้มากกว่า 1 ข้อ ตัวเลขจึงไม่รวมเป็น 100%</div></div>
+    </div>
+    <div class="grid3">
+      <div class="card"><h3>ช่องทางชำระเงิน</h3><div class="hint">% ของผู้ตอบที่ใช้ช่องทางนี้</div><div class="barlist" id="listPay"></div></div>
+      <div class="card"><h3>ช่องทางขนส่ง</h3><div class="hint">% ของผู้ตอบที่ใช้ช่องทางนี้</div><div class="barlist" id="listShip"></div></div>
+      <div class="card"><h3>อุปสรรคสู่การเป็นดิจิทัล</h3><div class="hint">% ของผู้ตอบที่ระบุเป็นอุปสรรค</div><div class="barlist" id="listBarrier"></div></div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <div><h2>หมวดหมู่สินค้า/บริการยอดนิยม</h2>
+      <div class="sec-desc" id="productsDesc">"อาหาร อาหารสำเร็จรูป และเครื่องดื่ม" เป็นหมวดที่มีผู้ขายมากที่สุด</div></div>
+    </div>
+    <div class="card"><h3>สัดส่วนผู้ขายในแต่ละหมวดสินค้า (Top 15)</h3><div class="hint">% ของผู้ตอบแบบสำรวจที่มีรายได้จากหมวดสินค้านี้</div><div class="chart-wrap" style="height:460px;"><canvas id="chartProducts"></canvas></div></div>
+  </section>
+
+  <section id="impact">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <div><h2>Digital Maturity ส่งผลต่อรายได้ออนไลน์และการจดทะเบียนอย่างไร</h2>
+      <div class="sec-desc" id="impactDesc">คะแนน DMI แทบไม่มีความสัมพันธ์กับรายได้ออนไลน์จริง</div></div>
+    </div>
+    <div class="grid2" style="margin-bottom:18px;">
+      <div class="card"><h3>คะแนน Digital Maturity เฉลี่ย แยกภูมิภาค</h3><div class="hint">เรียงจากสูงสุดไปต่ำสุด · จากคะแนนเต็ม 4.0</div><div class="level-legend" id="dmiLevelLegendRegion"></div><div class="chart-wrap" style="height:300px;"><canvas id="chartDmiByRegion"></canvas></div></div>
+      <div class="card">
+        <h3>รายได้ออนไลน์เฉลี่ย แยกตามระดับ Digital Maturity</h3>
+        <div class="hint">ทดสอบว่า DMI สูงขึ้น ช่วยให้ขายออนไลน์ได้มากขึ้นหรือไม่</div>
+        <div class="level-legend" id="dmiLevelLegendBucket"></div>
+        <div class="chart-wrap" style="height:260px;"><canvas id="chartDmiVsRev"></canvas></div>
+        <div class="hint" id="dmiCorrText" style="margin-top:10px; line-height:1.6;"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>จดทะเบียนพาณิชย์อิเล็กทรอนิกส์ vs ไม่จดทะเบียน</h3>
+      <div class="hint">เปรียบเทียบรายได้ออนไลน์และ Digital Maturity ของทั้ง 2 กลุ่ม</div>
+      <div class="grid2-even" style="margin-top:14px; align-items:stretch;">
+        <div class="card" style="background:var(--card-hi); box-shadow:none;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;"><div style="width:10px; height:10px; border-radius:3px; background:var(--teal);"></div><h3 style="margin:0;" id="regYesTitle">จดทะเบียนแล้ว</h3></div>
+          <div style="display:flex; gap:20px;">
+            <div><div class="hint" style="margin:0;">รายได้ออนไลน์เฉลี่ย/เดือน</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px;" id="regYesRev">-</div></div>
+            <div><div class="hint" style="margin:0;">DMI เฉลี่ย</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px; color:var(--teal);" id="regYesDmi">-</div></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--card-hi); box-shadow:none;">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;"><div style="width:10px; height:10px; border-radius:3px; background:#4A5170;"></div><h3 style="margin:0;" id="regNoTitle">ยังไม่จดทะเบียน</h3></div>
+          <div style="display:flex; gap:20px;">
+            <div><div class="hint" style="margin:0;">รายได้ออนไลน์เฉลี่ย/เดือน</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px;" id="regNoRev">-</div></div>
+            <div><div class="hint" style="margin:0;">DMI เฉลี่ย</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px;" id="regNoDmi">-</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="hint" id="regInsightText" style="margin-top:16px; line-height:1.7; font-size:12px;"></div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <div><h2>ลักษณะผู้ตอบแบบสำรวจ</h2>
+      <div class="sec-desc" id="demoDesc">ข้อมูลประชากรของกลุ่มที่กรองในขณะนี้</div></div>
+    </div>
+    <div class="circle-row" style="margin-bottom:14px;">
+      <div class="card" style="text-align:center;"><h3 style="margin-bottom:14px;">เพศ</h3><div class="chart-wrap" style="height:190px;"><canvas id="chartGender"></canvas></div></div>
+      <div class="card" style="text-align:center;"><h3 style="margin-bottom:14px;">ในเขต / นอกเขตเทศบาล</h3><div class="chart-wrap" style="height:190px;"><canvas id="chartUrban"></canvas></div></div>
+      <div class="card">
+        <h3>สถานะการจดทะเบียน</h3>
+        <div class="hint">% ของผู้ตอบในกลุ่มที่กรอง</div>
+        <div class="statpair">
+          <div class="stat"><div class="ring-wrap"><canvas id="ringCommerce"></canvas><div class="ring-val" id="ringCommerceVal">-</div></div><div class="ring-caption">จดทะเบียนพาณิชย์</div></div>
+          <div class="stat"><div class="ring-wrap"><canvas id="ringEcom"></canvas><div class="ring-val" id="ringEcomVal">-</div></div><div class="ring-caption">จดทะเบียน e-Commerce</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <h3>Generation</h3>
+      <div class="hint">จำนวนผู้ตอบแยกตาม Generation</div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="chartGen"></canvas></div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>ระดับการศึกษาสูงสุด</h3><div class="chart-wrap" style="height:320px;"><canvas id="chartEdu"></canvas></div></div>
+      <div class="card"><h3>รายได้ครัวเรือนต่อเดือน</h3><div class="chart-wrap" style="height:280px;"><canvas id="chartIncome"></canvas></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  ที่มา: ETDA — โครงการวัดมูลค่าพาณิชย์อิเล็กทรอนิกส์และสถานะการเปลี่ยนผ่านด้านดิจิทัล ภาคครัวเรือน (ผู้ประกอบการที่ไม่ได้จดทะเบียนนิติบุคคล) · ข้อมูล ณ วันที่ 14 กรกฎาคม 2569 · n = 3,473 · แดชบอร์ดนี้กรองข้อมูลแบบ real-time จากข้อมูลระดับผู้ตอบแบบสำรวจ · สร้างโดย Claude
+</footer>
