@@ -112,8 +112,9 @@ const DASHBOARD_CSS = `
   .hero h1{ font-size:clamp(26px,3.4vw,42px); font-weight:700; letter-spacing:-0.01em; max-width:1120px; line-height:1.28; }
   .hero h1 em{font-style:normal; color:var(--gold); display:block; margin-top:4px;}
   .hero p{color:var(--text-mid); max-width:640px; margin-top:16px; font-size:15px;}
+  .hero p.hero-hint{color:var(--text-dim); font-size:13px; margin-top:10px;}
 
-  .kpi-row{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:40px;}
+  .kpi-row{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:56px;}
   .kpi{ background:var(--card); border:1px solid var(--border-soft); border-radius:12px; padding:20px 18px; position:relative; overflow:hidden; box-shadow:0 2px 10px rgba(20,33,61,0.05); }
   .kpi::after{ content:''; position:absolute; bottom:0; left:0; height:2px; width:100%; background:linear-gradient(90deg, var(--gold), transparent); }
   .kpi .label{font-size:11.5px; color:var(--text-dim); font-family:'Noto Sans Thai'; text-transform:uppercase; letter-spacing:0.04em;}
@@ -278,7 +279,8 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
   <div class="hero-inner">
     <div class="eyebrow">Household E-Commerce Survey · 2569</div>
     <h1>สถานะพาณิชย์อิเล็กทรอนิกส์และการเปลี่ยนผ่านด้านดิจิทัล<em>ของผู้ประกอบการภาคครัวเรือน ประจำปี 2569</em></h1>
-    <p>สรุปผลจากผู้ตอบแบบสำรวจ 3,473 ราย ทั่วประเทศไทย ครอบคลุมพฤติกรรมการขายออนไลน์/ออฟไลน์ โครงสร้างรายได้ ช่องทางชำระเงิน-ขนส่ง และระดับความพร้อมด้านดิจิทัล (Digital Maturity Index) — ใช้ตัวกรองด้านบนเพื่อดูข้อมูลแยกตามภูมิภาค เขตพื้นที่ Generation และสถานะการจดทะเบียน</p>
+    <p>สรุปผลจากผู้ตอบแบบสำรวจ 3,473 ราย ทั่วประเทศไทย ครอบคลุมพฤติกรรมการขายออนไลน์/ออฟไลน์ โครงสร้างรายได้ ช่องทางชำระเงิน-ขนส่ง และระดับความพร้อมด้านดิจิทัล (Digital Maturity Index)</p>
+    <p class="hero-hint">ใช้ตัวกรองด้านบนเพื่อดูข้อมูลแยกตามภูมิภาค เขตพื้นที่ Generation และสถานะการจดทะเบียน</p>
 
     <div class="kpi-row" id="overview">
       <div class="kpi"><div class="label">ผู้ตอบแบบสำรวจ</div><div class="value" id="kpiN">3,473 <span class="unit">ราย</span></div><div class="sub" id="kpiNSub">ทั่วประเทศ · 7 ภูมิภาค</div></div>
