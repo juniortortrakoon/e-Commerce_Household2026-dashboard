@@ -164,17 +164,26 @@ const DASHBOARD_CSS = `
     margin-top:14px; padding:12px 14px; background:var(--card-hi); border:1px dashed var(--border);
     border-radius:10px; font-size:11.5px;
   }
-  .yoy-box .yoy-title{ font-family:'IBM Plex Mono'; color:var(--gold-dim); font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:8px; }
+  .yoy-box .yoy-title{ font-family:'IBM Plex Mono'; color:var(--gold-dim); font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:10px; }
+  .yoy-head{ display:flex; align-items:center; gap:8px; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+  .yoy-head .yoy-label{ flex:1; min-width:120px; }
+  .yoy-head .yoy-vals{ display:flex; align-items:center; gap:6px; }
+  .yoy-head .yoy-yr-old, .yoy-head .yoy-yr-new{
+    font-family:'IBM Plex Mono'; font-weight:700; font-size:12px; width:58px; text-align:right;
+    padding:3px 8px; border-radius:6px;
+  }
+  .yoy-head .yoy-yr-old{ color:var(--text-mid); background:rgba(20,33,61,0.06); }
+  .yoy-head .yoy-yr-new{ color:var(--gold-dim); background:rgba(224,147,42,0.14); }
+  .yoy-head .yoy-arrow{ color:var(--text-dim); width:14px; text-align:center; }
   .yoy-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
   .yoy-row:last-child{ margin-bottom:0; }
   .yoy-row .yoy-label{ flex:1; min-width:120px; color:var(--text-mid); }
   .yoy-row .yoy-vals{ display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono'; font-weight:500; white-space:nowrap; }
-  .yoy-row .yoy-old{ color:var(--text-dim); }
-  .yoy-row .yoy-arrow{ color:var(--text-dim); }
-  .yoy-row .yoy-new{ color:var(--text); font-weight:700; }
+  .yoy-row .yoy-old{ color:var(--text-dim); width:58px; text-align:right; display:inline-block; }
+  .yoy-row .yoy-arrow{ color:var(--text-dim); width:14px; text-align:center; display:inline-block; }
+  .yoy-row .yoy-new{ color:var(--text); font-weight:700; width:58px; text-align:right; display:inline-block; }
   .yoy-row .yoy-new.up{ color:var(--teal); }
   .yoy-row .yoy-new.down{ color:var(--coral); }
-  .yoy-row .yoy-yr{ color:var(--text-dim); font-size:9.5px; font-weight:400; margin-right:2px; }
 
   @media(max-width:900px){
     .kpi-row{grid-template-columns:repeat(2,1fr);}
@@ -363,9 +372,10 @@ const DASHBOARD_BODY_HTML = `<nav>
         <div class="chart-wrap" style="height:220px;"><canvas id="chartSellReg"></canvas></div>
         <div class="hint" id="sellRegInsight" style="margin-top:10px; line-height:1.6;"></div>
         <div class="yoy-box">
-          <div class="yoy-title">เทียบปี 2568 (อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง)</div>
-          <div class="yoy-row"><span class="yoy-label">ขายสม่ำเสมอทุกเดือน</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>80.34%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>88.73%</span></span></div>
-          <div class="yoy-row"><span class="yoy-label">ขายเป็นครั้งคราว</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>19.66%</span><span class="yoy-arrow">→</span><span class="yoy-new down"><span class="yoy-yr">'69</span>11.27%</span></span></div>
+          <div class="yoy-title">อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง</div>
+          <div class="yoy-head"><span class="yoy-label"></span><span class="yoy-vals"><span class="yoy-yr-old">2568</span><span class="yoy-arrow">→</span><span class="yoy-yr-new">2569</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">ขายสม่ำเสมอทุกเดือน</span><span class="yoy-vals"><span class="yoy-old">80.34%</span><span class="yoy-arrow">→</span><span class="yoy-new up">88.73%</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">ขายเป็นครั้งคราว</span><span class="yoy-vals"><span class="yoy-old">19.66%</span><span class="yoy-arrow">→</span><span class="yoy-new down">11.27%</span></span></div>
         </div>
       </div>
       <div class="card">
@@ -373,9 +383,10 @@ const DASHBOARD_BODY_HTML = `<nav>
         <div class="hint">สัดส่วนต้นทุนแต่ละประเภท · ใช้ตัวกรอง "เขตพื้นที่" ด้านบนเพื่อเทียบในเขต/นอกเขตเทศบาล</div>
         <div class="chart-wrap" style="height:280px;"><canvas id="chartCost"></canvas></div>
         <div class="yoy-box">
-          <div class="yoy-title">รวมค่าวัตถุดิบ+ขนส่ง เทียบปี 2568 (อ้างอิงรายงาน ETDA)</div>
-          <div class="yoy-row"><span class="yoy-label">ในเขตเทศบาล</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>49.46%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>54.85%</span></span></div>
-          <div class="yoy-row"><span class="yoy-label">นอกเขตเทศบาล</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>56.67%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>57.32%</span></span></div>
+          <div class="yoy-title">รวมค่าวัตถุดิบ+ขนส่ง · อ้างอิงรายงาน ETDA</div>
+          <div class="yoy-head"><span class="yoy-label"></span><span class="yoy-vals"><span class="yoy-yr-old">2568</span><span class="yoy-arrow">→</span><span class="yoy-yr-new">2569</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">ในเขตเทศบาล</span><span class="yoy-vals"><span class="yoy-old">49.46%</span><span class="yoy-arrow">→</span><span class="yoy-new up">54.85%</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">นอกเขตเทศบาล</span><span class="yoy-vals"><span class="yoy-old">56.67%</span><span class="yoy-arrow">→</span><span class="yoy-new up">57.32%</span></span></div>
         </div>
       </div>
     </div>
@@ -392,10 +403,11 @@ const DASHBOARD_BODY_HTML = `<nav>
       <div class="hint">% ของผู้ตอบในกลุ่มที่กรอง · จดทะเบียนพาณิชย์และ e-Commerce ไม่ใช่กลุ่มที่แยกจากกัน จึงรวมกันได้เกิน 100%</div>
       <div class="chart-wrap" style="height:180px;"><canvas id="chartRegStatus"></canvas></div>
       <div class="yoy-box">
-        <div class="yoy-title">เทียบปี 2568 (อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง)</div>
-        <div class="yoy-row"><span class="yoy-label">ยังไม่จดทะเบียนเลย</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>70.55%</span><span class="yoy-arrow">→</span><span class="yoy-new down"><span class="yoy-yr">'69</span>58.53%</span></span></div>
-        <div class="yoy-row"><span class="yoy-label">จดทะเบียนพาณิชย์</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>20.35%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>40.09%</span></span></div>
-        <div class="yoy-row"><span class="yoy-label">จดทะเบียนพาณิชย์อิเล็กทรอนิกส์</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>9.33%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>27.47%</span></span></div>
+        <div class="yoy-title">อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง</div>
+        <div class="yoy-head"><span class="yoy-label"></span><span class="yoy-vals"><span class="yoy-yr-old">2568</span><span class="yoy-arrow">→</span><span class="yoy-yr-new">2569</span></span></div>
+        <div class="yoy-row"><span class="yoy-label">ยังไม่จดทะเบียนเลย</span><span class="yoy-vals"><span class="yoy-old">70.55%</span><span class="yoy-arrow">→</span><span class="yoy-new down">58.53%</span></span></div>
+        <div class="yoy-row"><span class="yoy-label">จดทะเบียนพาณิชย์</span><span class="yoy-vals"><span class="yoy-old">20.35%</span><span class="yoy-arrow">→</span><span class="yoy-new up">40.09%</span></span></div>
+        <div class="yoy-row"><span class="yoy-label">จดทะเบียนพาณิชย์อิเล็กทรอนิกส์</span><span class="yoy-vals"><span class="yoy-old">9.33%</span><span class="yoy-arrow">→</span><span class="yoy-new up">27.47%</span></span></div>
       </div>
     </div>
     <div class="card" style="margin-bottom:18px;">
@@ -434,10 +446,11 @@ const DASHBOARD_BODY_HTML = `<nav>
         <div class="hint">กับ สสว.</div>
         <div class="chart-wrap" style="height:220px;"><canvas id="chartSme"></canvas></div>
         <div class="yoy-box">
-          <div class="yoy-title">เทียบปี 2568 (อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง)</div>
-          <div class="yoy-row"><span class="yoy-label">ขึ้นทะเบียนแล้ว</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>5.40%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>27.53%</span></span></div>
-          <div class="yoy-row"><span class="yoy-label">มีแผนขึ้นทะเบียน</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>3.24%</span><span class="yoy-arrow">→</span><span class="yoy-new down"><span class="yoy-yr">'69</span>0.09%</span></span></div>
-          <div class="yoy-row"><span class="yoy-label">ยังไม่มีแผน</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>91.36%</span><span class="yoy-arrow">→</span><span class="yoy-new down"><span class="yoy-yr">'69</span>72.38%</span></span></div>
+          <div class="yoy-title">อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง</div>
+          <div class="yoy-head"><span class="yoy-label"></span><span class="yoy-vals"><span class="yoy-yr-old">2568</span><span class="yoy-arrow">→</span><span class="yoy-yr-new">2569</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">ขึ้นทะเบียนแล้ว</span><span class="yoy-vals"><span class="yoy-old">5.40%</span><span class="yoy-arrow">→</span><span class="yoy-new up">27.53%</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">มีแผนขึ้นทะเบียน</span><span class="yoy-vals"><span class="yoy-old">3.24%</span><span class="yoy-arrow">→</span><span class="yoy-new down">0.09%</span></span></div>
+          <div class="yoy-row"><span class="yoy-label">ยังไม่มีแผน</span><span class="yoy-vals"><span class="yoy-old">91.36%</span><span class="yoy-arrow">→</span><span class="yoy-new down">72.38%</span></span></div>
         </div>
       </div>
     </div>
@@ -489,12 +502,13 @@ const DASHBOARD_BODY_HTML = `<nav>
         <div class="stat"><div class="ring-wrap"><canvas id="ringLiveShare"></canvas><div class="ring-val" id="ringLiveShareVal">-</div></div><div class="ring-caption">สัดส่วนรายได้จาก Live<br>ต่อรายได้ออนไลน์ (เฉพาะผู้ใช้)</div></div>
       </div>
       <div class="yoy-box">
-        <div class="yoy-title">เทียบปี 2568 (อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง)</div>
-        <div class="yoy-row"><span class="yoy-label">สัดส่วนผู้ขายที่ใช้ Live</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>16.42%</span><span class="yoy-arrow">→</span><span class="yoy-new down"><span class="yoy-yr">'69</span>10.02%</span></span></div>
+        <div class="yoy-title">อ้างอิงรายงาน ETDA · ไม่ตอบสนองตัวกรอง</div>
+        <div class="yoy-head"><span class="yoy-label"></span><span class="yoy-vals"><span class="yoy-yr-old">2568</span><span class="yoy-arrow">→</span><span class="yoy-yr-new">2569</span></span></div>
+        <div class="yoy-row"><span class="yoy-label">สัดส่วนผู้ขายที่ใช้ Live</span><span class="yoy-vals"><span class="yoy-old">16.42%</span><span class="yoy-arrow">→</span><span class="yoy-new down">10.02%</span></span></div>
         <div class="yoy-row"><span class="yoy-label">แพลตฟอร์มยอดนิยม (ในกลุ่มผู้ใช้ Live)</span></div>
-        <div class="yoy-row"><span class="yoy-label" style="padding-left:10px;">TikTok</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>64.79%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>94.48%</span></span></div>
-        <div class="yoy-row"><span class="yoy-label" style="padding-left:10px;">Instagram</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>5.63%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>51.84%</span></span></div>
-        <div class="yoy-row"><span class="yoy-label" style="padding-left:10px;">Lazada</span><span class="yoy-vals"><span class="yoy-old"><span class="yoy-yr">'68</span>24.88%</span><span class="yoy-arrow">→</span><span class="yoy-new up"><span class="yoy-yr">'69</span>52.15%</span></span></div>
+        <div class="yoy-row"><span class="yoy-label" style="padding-left:10px;">TikTok</span><span class="yoy-vals"><span class="yoy-old">64.79%</span><span class="yoy-arrow">→</span><span class="yoy-new up">94.48%</span></span></div>
+        <div class="yoy-row"><span class="yoy-label" style="padding-left:10px;">Instagram</span><span class="yoy-vals"><span class="yoy-old">5.63%</span><span class="yoy-arrow">→</span><span class="yoy-new up">51.84%</span></span></div>
+        <div class="yoy-row"><span class="yoy-label" style="padding-left:10px;">Lazada</span><span class="yoy-vals"><span class="yoy-old">24.88%</span><span class="yoy-arrow">→</span><span class="yoy-new up">52.15%</span></span></div>
       </div>
     </div>
   </section>
