@@ -16,62 +16,82 @@ const DASHBOARD_CSS = `
     --border:rgba(197,140,34,0.18); --border-soft:rgba(20,33,61,0.09);
     --gold:#E0932A; --gold-dim:#B9761C; --teal:#0FA89A; --coral:#E1544A; --violet:#6C63C7;
     --text:#1A2233; --text-mid:#5B6478; --text-dim:#8891A0;
-    --nav-h:73px;
+    --topbar-h:66px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg); color:var(--text);
-    font-family:'Noto Sans Thai','IBM Plex Mono',sans-serif; font-weight:400; line-height:1.55;
+    font-family:'Noto Sans Thai',sans-serif; font-weight:400; line-height:1.55;
     background-image:
       radial-gradient(circle at 15% 8%, rgba(224,147,42,0.07), transparent 40%),
       radial-gradient(circle at 85% 0%, rgba(15,168,154,0.06), transparent 35%);
   }
-  .num{font-family:'IBM Plex Mono',monospace;}
-  h1,h2,h3,.disp{font-family:'Kanit',sans-serif;}
+  .num{font-family:'Noto Sans Thai',sans-serif;}
+  h1,h2,h3,.disp{font-family:'Noto Sans Thai',sans-serif;}
 
-  nav{
-    position:sticky; top:0; z-index:60;
-    background:rgba(255,255,255,0.92); backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border-soft); padding:12px 32px;
-    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:nowrap;
+  /* ---- Top masthead bar (logo + filters combined) ---- */
+  .topbar{
+    position:sticky; top:0; z-index:70;
+    background:#fff;
+    border-bottom:1px solid var(--border-soft);
+    padding:13px 20px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    box-shadow:0 1px 2px rgba(20,33,61,0.03);
   }
-  .brand{display:flex; align-items:center; gap:12px; flex-shrink:0;}
-  .brand img{height:48px; width:auto; display:block;}
-  .navlinks{display:flex; gap:4px; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:thin; -ms-overflow-style:none;}
-  .navlinks::-webkit-scrollbar{height:4px;}
-  .navlinks::-webkit-scrollbar-thumb{background:var(--border); border-radius:4px;}
-  .navlinks a{
-    color:var(--text-mid); text-decoration:none; font-size:12.5px;
-    padding:7px 12px; border-radius:20px; transition:all .15s ease;
-    font-family:'IBM Plex Mono'; letter-spacing:0.01em; white-space:nowrap; flex-shrink:0;
+  .topbar::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg, var(--gold), var(--teal));
   }
-  .navlinks a:hover{background:var(--card-hi); color:var(--gold-dim);}
+  .topbar img{ height:38px; width:auto; display:block; flex-shrink:0; }
+  .filter-cluster{
+    flex:1; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    background:linear-gradient(135deg, rgba(224,147,42,0.10), rgba(15,168,154,0.08));
+    border:1px solid var(--border);
+    border-radius:18px; padding:9px 18px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 3px rgba(20,33,61,0.04);
+  }
+  .topbar .flabel{font-family:'Noto Sans Thai'; font-weight:600; font-size:11px; color:var(--gold-dim); text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:6px;}
 
-  /* ---- Filter bar ---- */
-  .filterbar{
-    position:sticky; top:var(--nav-h); z-index:55;
-    background:rgba(251,243,227,0.96); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--border);
-    padding:12px 32px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  .app-shell{ display:flex; align-items:stretch; min-height:calc(100vh - var(--topbar-h)); }
+
+  .sidebar{
+    width:230px; flex-shrink:0;
+    position:sticky; top:var(--topbar-h); align-self:flex-start; height:calc(100vh - var(--topbar-h)); overflow-y:auto;
+    background:linear-gradient(180deg, #363C56, #2C3148);
+    padding:22px 14px; display:flex; flex-direction:column; gap:18px;
+    scrollbar-width:thin;
   }
-  .filterbar .flabel{font-family:'IBM Plex Mono'; font-size:11px; color:var(--gold-dim); text-transform:uppercase; letter-spacing:0.05em; display:flex; align-items:center; gap:6px;}
+  .sidenav{ display:flex; flex-direction:column; gap:2px; }
+  .sidenav a{
+    position:relative; color:#B7BCCC; text-decoration:none; font-size:12.5px;
+    padding:10px 14px; border-radius:9px; transition:all .15s ease;
+    font-family:'Noto Sans Thai'; letter-spacing:0.01em;
+  }
+  .sidenav a:hover{background:rgba(255,255,255,0.08); color:#fff;}
+  .sidenav a.active{
+    background:rgba(108,99,199,0.28); color:#fff; font-weight:500;
+    box-shadow:inset 3px 0 0 var(--violet);
+  }
+
+  .main-col{ flex:1; min-width:0; display:flex; flex-direction:column; }
+
+  /* ---- Filter groups (now inside topbar) ---- */
   .fgroup{display:flex; flex-direction:column; gap:3px;}
-  .fgroup span{font-size:10.5px; color:var(--text-dim); font-family:'IBM Plex Mono';}
+  .fgroup span{font-size:10.5px; color:var(--text-dim); font-family:'Noto Sans Thai';}
   .fgroup select{
-    font-family:'Noto Sans Thai','IBM Plex Mono',sans-serif; font-size:12.5px; color:var(--text);
+    font-family:'Noto Sans Thai',sans-serif; font-size:12.5px; color:var(--text);
     background:#fff; border:1px solid var(--border-soft); border-radius:8px; padding:6px 10px;
     min-width:150px; cursor:pointer;
   }
   .fgroup select:focus{outline:2px solid var(--gold); outline-offset:1px;}
   #fReset{
-    font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--coral); background:none;
+    font-family:'Noto Sans Thai'; font-size:11.5px; color:var(--coral); background:none;
     border:1px solid rgba(225,84,74,0.35); border-radius:20px; padding:6px 14px; cursor:pointer;
     transition:all .15s ease; align-self:flex-end;
   }
   #fReset:hover{background:rgba(225,84,74,0.08);}
   .fcount{
-    margin-left:auto; font-family:'IBM Plex Mono'; font-size:12px; color:var(--text-mid);
+    margin-left:auto; font-family:'Noto Sans Thai'; font-size:12px; color:var(--text-mid);
     background:#fff; border:1px solid var(--border-soft); border-radius:20px; padding:7px 14px;
     white-space:nowrap;
   }
@@ -85,7 +105,7 @@ const DASHBOARD_CSS = `
   }
   .hero-inner{position:relative; max-width:1180px; margin:0 auto;}
   .eyebrow{
-    display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono'; font-size:12px; color:var(--gold);
+    display:inline-flex; align-items:center; gap:8px; font-family:'Noto Sans Thai'; font-size:12px; color:var(--gold);
     letter-spacing:0.08em; text-transform:uppercase; border:1px solid var(--border); padding:5px 12px; border-radius:20px; margin-bottom:22px;
   }
   .eyebrow::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal);}
@@ -96,15 +116,15 @@ const DASHBOARD_CSS = `
   .kpi-row{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:40px;}
   .kpi{ background:var(--card); border:1px solid var(--border-soft); border-radius:12px; padding:20px 18px; position:relative; overflow:hidden; box-shadow:0 2px 10px rgba(20,33,61,0.05); }
   .kpi::after{ content:''; position:absolute; bottom:0; left:0; height:2px; width:100%; background:linear-gradient(90deg, var(--gold), transparent); }
-  .kpi .label{font-size:11.5px; color:var(--text-dim); font-family:'IBM Plex Mono'; text-transform:uppercase; letter-spacing:0.04em;}
-  .kpi .value{font-family:'Kanit'; font-weight:700; font-size:26px; margin-top:8px; color:var(--text);}
+  .kpi .label{font-size:11.5px; color:var(--text-dim); font-family:'Noto Sans Thai'; text-transform:uppercase; letter-spacing:0.04em;}
+  .kpi .value{font-family:'Noto Sans Thai'; font-weight:700; font-size:26px; margin-top:8px; color:var(--text);}
   .kpi .value .unit{font-size:13px; font-weight:400; color:var(--text-mid); margin-left:3px;}
-  .kpi .sub{font-size:11.5px; color:var(--teal); margin-top:4px; font-family:'IBM Plex Mono';}
+  .kpi .sub{font-size:11.5px; color:var(--teal); margin-top:4px; font-family:'Noto Sans Thai';}
 
   main{max-width:1180px; margin:0 auto; padding:56px 32px;}
   section{margin-bottom:76px; scroll-margin-top:150px;}
   .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:24px; flex-wrap:wrap;}
-  .sec-num{font-family:'IBM Plex Mono'; font-size:12px; color:var(--gold-dim); border:1px solid var(--border); padding:3px 9px; border-radius:6px;}
+  .sec-num{font-family:'Noto Sans Thai'; font-size:12px; color:var(--gold-dim); border:1px solid var(--border); padding:3px 9px; border-radius:6px;}
   .sec-head h2{font-size:22px; font-weight:600;}
   .sec-desc{color:var(--text-dim); font-size:13px; margin-top:4px; max-width:680px;}
 
@@ -116,7 +136,7 @@ const DASHBOARD_CSS = `
 
   .card{ background:var(--card); border:1px solid var(--border-soft); border-radius:14px; padding:22px 24px; min-width:0; box-shadow:0 2px 14px rgba(20,33,61,0.05); display:flex; flex-direction:column; }
   .card h3{font-size:14px; font-weight:600; color:var(--text); margin-bottom:2px;}
-  .card .hint{font-size:11.5px; color:var(--text-dim); margin-bottom:14px; font-family:'IBM Plex Mono';}
+  .card .hint{font-size:11.5px; color:var(--text-dim); margin-bottom:14px; font-family:'Noto Sans Thai';}
   .chart-wrap{position:relative; flex:none; width:100%;}
 
   .dmi-hero{
@@ -126,22 +146,22 @@ const DASHBOARD_CSS = `
   }
   .gauge-box{display:flex; flex-direction:column; align-items:center; text-align:center;}
   .level-legend{display:flex; flex-wrap:wrap; gap:8px 16px; margin-bottom:16px;}
-  .level-legend .item{display:flex; align-items:center; gap:6px; font-size:11px; font-family:'IBM Plex Mono'; color:var(--text-mid);}
+  .level-legend .item{display:flex; align-items:center; gap:6px; font-size:11px; font-family:'Noto Sans Thai'; color:var(--text-mid);}
   .level-legend .dot{width:9px; height:9px; border-radius:3px; flex-shrink:0;}
-  .gauge-score{font-family:'Kanit'; font-weight:800; font-size:48px; color:var(--gold-dim); margin-top:-108px;}
+  .gauge-score{font-family:'Noto Sans Thai'; font-weight:800; font-size:48px; color:var(--gold-dim); margin-top:-108px;}
   .gauge-score .of{font-size:18px; color:var(--text-dim); font-weight:400;}
-  .gauge-label{font-size:12px; color:var(--text-mid); font-family:'IBM Plex Mono'; margin-top:6px; letter-spacing:0.03em;}
+  .gauge-label{font-size:12px; color:var(--text-mid); font-family:'Noto Sans Thai'; margin-top:6px; letter-spacing:0.03em;}
   .dmi-dims{display:flex; flex-direction:column; gap:10px; margin-top:18px; width:100%; max-width:340px;}
   .dmi-dim-row{display:flex; align-items:center; gap:10px;}
   .dmi-dim-row .name{width:130px; font-size:11.5px; color:var(--text-mid); text-align:right; flex-shrink:0;}
   .dmi-dim-row .bar-track{flex:1; height:7px; background:rgba(20,33,61,0.08); border-radius:4px; overflow:hidden;}
   .dmi-dim-row .bar-fill{height:100%; border-radius:4px;}
-  .dmi-dim-row .v{width:32px; font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--text);}
+  .dmi-dim-row .v{width:32px; font-family:'Noto Sans Thai'; font-size:11.5px; color:var(--text);}
 
   .barlist{display:flex; flex-direction:column; gap:12px;}
   .barlist-row .top{display:flex; justify-content:space-between; font-size:12.5px; margin-bottom:5px;}
   .barlist-row .top .name{color:var(--text-mid);}
-  .barlist-row .top .pct{font-family:'IBM Plex Mono'; color:var(--text); font-weight:500;}
+  .barlist-row .top .pct{font-family:'Noto Sans Thai'; color:var(--text); font-weight:500;}
   .barlist-row .track{height:8px; background:rgba(20,33,61,0.07); border-radius:5px; overflow:hidden;}
   .barlist-row .fill{height:100%; border-radius:5px;}
   .fill-gold{background:linear-gradient(90deg,var(--gold-dim),var(--gold));}
@@ -152,24 +172,24 @@ const DASHBOARD_CSS = `
   .statpair{display:flex; gap:16px; flex:1; align-items:center;}
   .statpair .stat{flex:1; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center;}
   .ring-wrap{position:relative; width:150px; height:150px; margin:0 auto 10px;}
-  .ring-val{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Kanit'; font-weight:700; font-size:26px; color:var(--text);}
-  .ring-caption{font-size:12px; color:var(--text-mid); font-family:'IBM Plex Mono'; text-align:center;}
+  .ring-val{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans Thai'; font-weight:700; font-size:26px; color:var(--text);}
+  .ring-caption{font-size:12px; color:var(--text-mid); font-family:'Noto Sans Thai'; text-align:center;}
 
-  footer{ border-top:1px solid var(--border-soft); padding:28px 32px; text-align:center; color:var(--text-dim); font-size:11.5px; font-family:'IBM Plex Mono'; }
+  footer{ border-top:1px solid var(--border-soft); padding:28px 32px; text-align:center; color:var(--text-dim); font-size:11.5px; font-family:'Noto Sans Thai'; }
   footer a{color:var(--gold-dim);}
 
-  .nodata{ display:flex; align-items:center; justify-content:center; height:100%; color:var(--text-dim); font-size:12px; font-family:'IBM Plex Mono'; text-align:center; padding:20px; }
+  .nodata{ display:flex; align-items:center; justify-content:center; height:100%; color:var(--text-dim); font-size:12px; font-family:'Noto Sans Thai'; text-align:center; padding:20px; }
 
   .yoy-box{
     margin-top:14px; padding:12px 14px; background:var(--card-hi); border:1px dashed var(--border);
     border-radius:10px; font-size:11.5px;
   }
-  .yoy-box .yoy-title{ font-family:'IBM Plex Mono'; color:var(--gold-dim); font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:10px; }
+  .yoy-box .yoy-title{ font-family:'Noto Sans Thai'; color:var(--gold-dim); font-size:10.5px; text-transform:uppercase; letter-spacing:0.03em; margin-bottom:10px; }
   .yoy-head{ display:flex; align-items:center; gap:8px; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid var(--border); }
   .yoy-head .yoy-label{ flex:1; min-width:120px; }
   .yoy-head .yoy-vals{ display:flex; align-items:center; gap:6px; }
   .yoy-head .yoy-yr-old, .yoy-head .yoy-yr-new{
-    font-family:'IBM Plex Mono'; font-weight:700; font-size:12px; width:58px; text-align:right;
+    font-family:'Noto Sans Thai'; font-weight:700; font-size:12px; width:58px; text-align:right;
     padding:3px 8px; border-radius:6px;
   }
   .yoy-head .yoy-yr-old{ color:var(--text-mid); background:rgba(20,33,61,0.06); }
@@ -178,7 +198,7 @@ const DASHBOARD_CSS = `
   .yoy-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
   .yoy-row:last-child{ margin-bottom:0; }
   .yoy-row .yoy-label{ flex:1; min-width:120px; color:var(--text-mid); }
-  .yoy-row .yoy-vals{ display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono'; font-weight:500; white-space:nowrap; }
+  .yoy-row .yoy-vals{ display:flex; align-items:center; gap:6px; font-family:'Noto Sans Thai'; font-weight:500; white-space:nowrap; }
   .yoy-row .yoy-old{ color:var(--text-dim); width:58px; text-align:right; display:inline-block; }
   .yoy-row .yoy-arrow{ color:var(--text-dim); width:14px; text-align:center; display:inline-block; }
   .yoy-row .yoy-new{ color:var(--text); font-weight:700; width:58px; text-align:right; display:inline-block; }
@@ -186,60 +206,72 @@ const DASHBOARD_CSS = `
   .yoy-row .yoy-new.down{ color:var(--coral); }
 
   @media(max-width:900px){
+    .filter-cluster{width:100%; border-radius:14px; padding:10px 14px;}
+    .topbar .flabel{width:100%;}
+    .app-shell{flex-direction:column;}
+    .sidebar{
+      width:100%; height:auto; position:sticky; top:var(--topbar-h); z-index:60;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      flex-direction:row; align-items:center; padding:10px 16px; gap:14px;
+    }
+    .sidenav{flex-direction:row; flex-wrap:wrap; overflow-x:auto; gap:4px;}
+    .sidenav a{white-space:nowrap; padding:6px 10px;}
     .kpi-row{grid-template-columns:repeat(2,1fr);}
     .grid2, .grid2-even, .grid3, .grid4, .circle-row{grid-template-columns:1fr;}
     .dmi-hero{grid-template-columns:1fr;}
-    .navlinks{display:none;}
-    .filterbar{top:65px;}
     .fcount{margin-left:0; width:100%; text-align:center;}
   }
 `;
-const DASHBOARD_BODY_HTML = `<nav>
-  <div class="brand">
-    <img id="logoImg" src="" alt="ETDA / กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม">
+const DASHBOARD_BODY_HTML = `<header class="topbar">
+  <img id="logoImg" src="" alt="ETDA / กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม">
+  <div class="filter-cluster">
+    <div class="flabel">⚲ ตัวกรอง</div>
+    <div class="fgroup"><span>ภูมิภาค</span>
+      <select id="fRegion"><option value="-1">ทั้งหมด</option></select>
+    </div>
+    <div class="fgroup"><span>เขตพื้นที่</span>
+      <select id="fUrban">
+        <option value="-1">ทั้งหมด</option>
+        <option value="1">ในเขตเทศบาล</option>
+        <option value="0">นอกเขตเทศบาล</option>
+      </select>
+    </div>
+    <div class="fgroup"><span>Generation</span>
+      <select id="fGen"><option value="-1">ทั้งหมด</option></select>
+    </div>
+    <div class="fgroup"><span>สถานะจดทะเบียน e-Commerce</span>
+      <select id="fReg">
+        <option value="-1">ทั้งหมด</option>
+        <option value="1">จดทะเบียนแล้ว</option>
+        <option value="0">ยังไม่จดทะเบียน</option>
+      </select>
+    </div>
+    <button id="fReset">ล้างตัวกรองทั้งหมด</button>
+    <div class="fcount">แสดงผล <b id="fCountShown">3,473</b> จาก <b>3,473</b> ราย</div>
   </div>
-  <div class="navlinks">
-    <a href="#overview">ภาพรวม</a>
-    <a href="#region">ภูมิภาค</a>
-    <a href="#channels">ช่องทางขาย</a>
-    <a href="#c2x">C2B/C2C/C2G</a>
-    <a href="#dmi">Digital Maturity</a>
-    <a href="#ops">การชำระ/ขนส่ง</a>
-    <a href="#products">สินค้า</a>
-    <a href="#impact">DMI x รายได้</a>
-    <a href="#regularity">ต้นทุน</a>
-    <a href="#registration">จดทะเบียน</a>
-    <a href="#techready">ความพร้อมเทคโนโลยี</a>
-    <a href="#foreign">ต่างประเทศ/Live</a>
-    <a href="#demo">ผู้ตอบแบบสำรวจ</a>
-  </div>
-</nav>
+</header>
 
-<div class="filterbar">
-  <div class="flabel">⚲ ตัวกรอง</div>
-  <div class="fgroup"><span>ภูมิภาค</span>
-    <select id="fRegion"><option value="-1">ทั้งหมด</option></select>
-  </div>
-  <div class="fgroup"><span>เขตพื้นที่</span>
-    <select id="fUrban">
-      <option value="-1">ทั้งหมด</option>
-      <option value="1">ในเขตเทศบาล</option>
-      <option value="0">นอกเขตเทศบาล</option>
-    </select>
-  </div>
-  <div class="fgroup"><span>Generation</span>
-    <select id="fGen"><option value="-1">ทั้งหมด</option></select>
-  </div>
-  <div class="fgroup"><span>สถานะจดทะเบียน e-Commerce</span>
-    <select id="fReg">
-      <option value="-1">ทั้งหมด</option>
-      <option value="1">จดทะเบียนแล้ว</option>
-      <option value="0">ยังไม่จดทะเบียน</option>
-    </select>
-  </div>
-  <button id="fReset">ล้างตัวกรองทั้งหมด</button>
-  <div class="fcount">แสดงผล <b id="fCountShown">3,473</b> จาก <b>3,473</b> ราย</div>
-</div>
+<div class="app-shell">
+  <aside class="sidebar">
+    <nav class="sidenav">
+      <a href="#overview">ภาพรวม</a>
+      <a href="#region">ภูมิภาค</a>
+      <a href="#channels">ช่องทางขาย</a>
+      <a href="#c2x">C2B/C2C/C2G</a>
+      <a href="#dmi">Digital Maturity</a>
+      <a href="#ops">การชำระ/ขนส่ง</a>
+      <a href="#products">สินค้า</a>
+      <a href="#impact">DMI x รายได้</a>
+      <a href="#regularity">ต้นทุน</a>
+      <a href="#registration">จดทะเบียน</a>
+      <a href="#techready">ความพร้อมเทคโนโลยี</a>
+      <a href="#foreign">ต่างประเทศ/Live</a>
+      <a href="#demo">ผู้ตอบแบบสำรวจ</a>
+    </nav>
+
+  </aside>
+
+  <div class="main-col">
 
 <header class="hero">
   <div class="hero-grid"></div>
@@ -417,15 +449,15 @@ const DASHBOARD_BODY_HTML = `<nav>
         <div class="card" style="background:var(--card-hi); box-shadow:none;">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;"><div style="width:10px; height:10px; border-radius:3px; background:var(--teal);"></div><h3 style="margin:0;" id="regYesTitle">จดทะเบียนแล้ว</h3></div>
           <div style="display:flex; gap:20px;">
-            <div><div class="hint" style="margin:0;">รายได้ออนไลน์เฉลี่ย/เดือน</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px;" id="regYesRev">-</div></div>
-            <div><div class="hint" style="margin:0;">DMI เฉลี่ย</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px; color:var(--teal);" id="regYesDmi">-</div></div>
+            <div><div class="hint" style="margin:0;">รายได้ออนไลน์เฉลี่ย/เดือน</div><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:22px;" id="regYesRev">-</div></div>
+            <div><div class="hint" style="margin:0;">DMI เฉลี่ย</div><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:22px; color:var(--teal);" id="regYesDmi">-</div></div>
           </div>
         </div>
         <div class="card" style="background:var(--card-hi); box-shadow:none;">
           <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;"><div style="width:10px; height:10px; border-radius:3px; background:#4A5170;"></div><h3 style="margin:0;" id="regNoTitle">ยังไม่จดทะเบียน</h3></div>
           <div style="display:flex; gap:20px;">
-            <div><div class="hint" style="margin:0;">รายได้ออนไลน์เฉลี่ย/เดือน</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px;" id="regNoRev">-</div></div>
-            <div><div class="hint" style="margin:0;">DMI เฉลี่ย</div><div style="font-family:'Kanit'; font-weight:700; font-size:22px;" id="regNoDmi">-</div></div>
+            <div><div class="hint" style="margin:0;">รายได้ออนไลน์เฉลี่ย/เดือน</div><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:22px;" id="regNoRev">-</div></div>
+            <div><div class="hint" style="margin:0;">DMI เฉลี่ย</div><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:22px;" id="regNoDmi">-</div></div>
           </div>
         </div>
       </div>
@@ -538,7 +570,10 @@ const DASHBOARD_BODY_HTML = `<nav>
 
 <footer>
   ที่มา: ETDA — โครงการวัดมูลค่าพาณิชย์อิเล็กทรอนิกส์และสถานะการเปลี่ยนผ่านด้านดิจิทัล ภาคครัวเรือน (ผู้ประกอบการที่ไม่ได้จดทะเบียนนิติบุคคล) · ข้อมูล ณ วันที่ 14 กรกฎาคม 2569
-</footer>`;
+</footer>
+
+  </div>
+</div>`;
 
 export default function App() {
   const rootRef = useRef(null);
@@ -886,7 +921,7 @@ function computeLive(rows){
    ========================================================= */
 const charts = {};
 function killChart(id){ if(charts[id]){ charts[id].destroy(); delete charts[id]; } }
-function baseFont(){ return "'Noto Sans Thai','IBM Plex Mono',sans-serif"; }
+function baseFont(){ return "'Noto Sans Thai',sans-serif"; }
 
 function renderAll(){
   const rows = filterRows(null);
@@ -944,7 +979,7 @@ function renderRegion(){
           label:c=> c.dataset.label+': '+fmtNum(c.parsed.x)+' บาท',
           afterLabel:c=>{ const d=sortedRev[c.dataIndex]; return c.datasetIndex===0 ? ['จำนวนผู้ตอบ: '+fmtNum(d.count)+' ราย','DMI เฉลี่ย: '+d.avgDmi.toFixed(2)+' / 4.0'] : []; }
         }},
-        datalabels:{ display:true, anchor:'end', align:'right', clamp:true, color:C.textMid, font:{family:"'IBM Plex Mono'",size:10.5,weight:500}, formatter:v=>fmtNum(v) }
+        datalabels:{ display:true, anchor:'end', align:'right', clamp:true, color:C.textMid, font:{family:"'Noto Sans Thai'",size:10.5,weight:500}, formatter:v=>fmtNum(v) }
       },
       scales:{ x:{grid:{color:C.grid}, ticks:{callback:v=>fmtNum(v), font:{family:baseFont()}}, suggestedMax: Math.max(...sortedRev.map(d=>d.avgRev),1)*1.18, title:{display:true,text:'บาท / เดือน', color:C.textDim, font:{size:10.5}}},
                y:{grid:{display:false}, ticks:{font:{size:11.5, family:baseFont()}, autoSkip:false}} }
@@ -961,7 +996,7 @@ function renderRegion(){
       plugins:{
         legend:{position:'right', labels:{boxWidth:10,boxHeight:10,padding:10, font:{size:10.5, family:baseFont()}}},
         tooltip:{callbacks:{label:c=> c.label+': '+fmtNum(c.parsed)+' ราย ('+pct(c.parsed,totalCnt).toFixed(1)+'%)'}},
-        datalabels:{ display:true, color:'#0A0F1E', font:{family:"'IBM Plex Mono'",size:10,weight:600}, formatter:(v)=> pct(v,totalCnt).toFixed(1)+'%' }
+        datalabels:{ display:true, color:'#0A0F1E', font:{family:"'Noto Sans Thai'",size:10,weight:600}, formatter:(v)=> pct(v,totalCnt).toFixed(1)+'%' }
       }
     }
   });
@@ -998,7 +1033,7 @@ function renderC2x(rows){
     options:{ responsive:true, maintainAspectRatio:false, cutout:'58%',
       plugins:{ legend:{position:'bottom', labels:{boxWidth:9,boxHeight:9,padding:10, font:{size:10.5, family:baseFont()}}},
         tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.parsed.toFixed(1)+'%'}},
-        datalabels:{ display:true, color:'#fff', font:{family:"'IBM Plex Mono'",size:11,weight:600}, formatter:v=>v.toFixed(1)+'%' }
+        datalabels:{ display:true, color:'#fff', font:{family:"'Noto Sans Thai'",size:11,weight:600}, formatter:v=>v.toFixed(1)+'%' }
       }
     }
   });
@@ -1125,7 +1160,7 @@ function renderImpact(rows){
     options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, layout:{padding:{right:34}},
       plugins:{ legend:{display:false},
         tooltip:{callbacks:{ label:c=>'DMI เฉลี่ย: '+c.parsed.x.toFixed(2)+' / 4.0 · '+dmiLevel(c.parsed.x).name, afterLabel:c=>'จำนวนผู้ตอบ: '+fmtNum(regionDmi[c.dataIndex].count)+' ราย' }},
-        datalabels:{ display:true, anchor:'end', align:'right', clamp:true, color:C.textMid, font:{family:"'IBM Plex Mono'",size:10.5,weight:500}, formatter:v=>v.toFixed(2) }
+        datalabels:{ display:true, anchor:'end', align:'right', clamp:true, color:C.textMid, font:{family:"'Noto Sans Thai'",size:10.5,weight:500}, formatter:v=>v.toFixed(2) }
       },
       scales:{ x:{grid:{color:C.grid}, max:4, title:{display:true,text:'คะแนน DMI (เต็ม 4.0)',color:C.textDim,font:{size:10.5}}}, y:{grid:{display:false}, ticks:{font:{size:11.5, family:baseFont()}, autoSkip:false}} }
     }
@@ -1163,7 +1198,7 @@ function renderRegularity(rows){
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{position:'bottom', labels:{boxWidth:9,boxHeight:9,padding:10, font:{size:10.5, family:baseFont()}}},
         tooltip:{callbacks:{label:c=>c.label+': '+fmtNum(c.parsed)+' ราย'}},
-        datalabels:{ display:true, color:'#fff', font:{family:"'IBM Plex Mono'",size:11,weight:600},
+        datalabels:{ display:true, color:'#fff', font:{family:"'Noto Sans Thai'",size:11,weight:600},
           formatter:(v,ctx)=>{ const t=ctx.chart.data.datasets[0].data.reduce((a,b)=>a+b,0); return t>0?pct(v,t).toFixed(1)+'%':''; } }
       }
     }
@@ -1199,7 +1234,7 @@ function renderRegistration(rows){
     }] },
     options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
       plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.parsed.x.toFixed(1)+'% ('+fmtNum(Math.round(c.parsed.x/100*statusBd.total))+' ราย โดยประมาณ)'}},
-        datalabels:{ display:true, anchor:'end', align:'right', clamp:true, color:C.textMid, font:{family:"'IBM Plex Mono'",size:11,weight:600}, formatter:v=>v.toFixed(1)+'%' }
+        datalabels:{ display:true, anchor:'end', align:'right', clamp:true, color:C.textMid, font:{family:"'Noto Sans Thai'",size:11,weight:600}, formatter:v=>v.toFixed(1)+'%' }
       },
       scales:{ x:{grid:{color:C.grid}, max:100, ticks:{callback:v=>v+'%', font:{family:baseFont()}}}, y:{grid:{display:false}, ticks:{font:{size:11.5, family:baseFont()}}} }
     }
@@ -1244,7 +1279,7 @@ function renderRegistration(rows){
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{position:'bottom', labels:{boxWidth:8,boxHeight:8,padding:6, font:{size:9.5, family:baseFont()}}},
         tooltip:{callbacks:{label:c=>c.label+': '+fmtNum(c.parsed)+' ราย'}},
-        datalabels:{ display:true, color:'#fff', font:{family:"'IBM Plex Mono'",size:10,weight:600},
+        datalabels:{ display:true, color:'#fff', font:{family:"'Noto Sans Thai'",size:10,weight:600},
           formatter:(v)=> rp.smeTotal>0 && v>0 ? pct(v,rp.smeTotal).toFixed(1)+'%' : '' }
       }
     }
@@ -1288,7 +1323,7 @@ function renderForeign(rows){
     options:{ responsive:true, maintainAspectRatio:false, cutout:'55%',
       plugins:{ legend:{position:'bottom', labels:{boxWidth:9,boxHeight:9,padding:10, font:{size:10.5, family:baseFont()}}},
         tooltip:{callbacks:{label:c=>c.label+': '+fmtNum(c.parsed)+' ราย'}},
-        datalabels:{ display:true, color:'#fff', font:{family:"'IBM Plex Mono'",size:11,weight:600},
+        datalabels:{ display:true, color:'#fff', font:{family:"'Noto Sans Thai'",size:11,weight:600},
           formatter:(v)=> fi.total>0 ? pct(v,fi.total).toFixed(1)+'%' : '' }
       }
     }
@@ -1334,7 +1369,7 @@ function renderDemo(rows){
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{position:'bottom', labels:{boxWidth:9,boxHeight:9,padding:8, font:{size:10.5, family:baseFont()}}},
         tooltip:{callbacks:{label:c=>c.label+': '+fmtNum(c.parsed)+' ราย'}},
-        datalabels:{ display:true, color:'#0A0F1E', font:{family:"'IBM Plex Mono'",size:11,weight:600}, formatter:(v)=> genderTotal>0 ? pct(v,genderTotal).toFixed(1)+'%' : '' }
+        datalabels:{ display:true, color:'#0A0F1E', font:{family:"'Noto Sans Thai'",size:11,weight:600}, formatter:(v)=> genderTotal>0 ? pct(v,genderTotal).toFixed(1)+'%' : '' }
       }
     }
   });
@@ -1347,7 +1382,7 @@ function renderDemo(rows){
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{position:'bottom', labels:{boxWidth:9,boxHeight:9,padding:8, font:{size:10.5, family:baseFont()}}},
         tooltip:{callbacks:{label:c=>c.label+': '+fmtNum(c.parsed)+' ราย'}},
-        datalabels:{ display:true, color:'#fff', font:{family:"'IBM Plex Mono'",size:11,weight:600}, formatter:(v)=> ub.total>0 ? pct(v,ub.total).toFixed(1)+'%' : '' }
+        datalabels:{ display:true, color:'#fff', font:{family:"'Noto Sans Thai'",size:11,weight:600}, formatter:(v)=> ub.total>0 ? pct(v,ub.total).toFixed(1)+'%' : '' }
       }
     }
   });
@@ -1398,6 +1433,25 @@ function populateSelect(id, options){
   });
 }
 
+function initScrollSpy(){
+  const links = document.querySelectorAll('.sidenav a');
+  const map = {};
+  links.forEach(a=>{ const id = a.getAttribute('href').slice(1); map[id] = a; });
+  const targets = Object.keys(map).map(id=>document.getElementById(id)).filter(Boolean);
+  if(!targets.length || typeof IntersectionObserver === 'undefined') return;
+  const setActive = (id)=>{
+    Object.values(map).forEach(a=>a.classList.remove('active'));
+    if(map[id]) map[id].classList.add('active');
+  };
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin:'-15% 0px -70% 0px', threshold:0 });
+  targets.forEach(t=>observer.observe(t));
+  setActive(targets[0].id);
+}
+
 function bindFilters(){
   document.getElementById('fRegion').addEventListener('change', e=>{ state.region = parseInt(e.target.value); renderAll(); });
   document.getElementById('fUrban').addEventListener('change', e=>{ state.urban = parseInt(e.target.value); renderAll(); });
@@ -1413,11 +1467,11 @@ function bindFilters(){
   });
 }
 
-function syncNavHeight(){
-  const navEl = document.querySelector('nav');
-  if(!navEl) return;
-  const h = navEl.offsetHeight;
-  if(h > 0) document.documentElement.style.setProperty('--nav-h', h + 'px');
+function syncLayoutOffsets(){
+  const topbarEl = document.querySelector('.topbar');
+  if(!topbarEl) return;
+  const th = topbarEl.offsetHeight;
+  if(th > 0) document.documentElement.style.setProperty('--topbar-h', th + 'px');
 }
 
 function initDashboard(){
@@ -1438,10 +1492,11 @@ function initDashboard(){
   renderLevelLegend('dmiLevelLegend');
   bindFilters();
   renderAll();
+  initScrollSpy();
 
-  syncNavHeight();
-  window.addEventListener('resize', syncNavHeight);
-  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncNavHeight); }
+  syncLayoutOffsets();
+  window.addEventListener('resize', syncLayoutOffsets);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncLayoutOffsets); }
 }
 
 
