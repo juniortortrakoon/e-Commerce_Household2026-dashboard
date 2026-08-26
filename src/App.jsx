@@ -1,53 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-const SimpleDataLabelsPlugin = {
-  id: 'datalabels',
-  afterDatasetsDraw(chart, args, pluginOpts) {
-    if (!pluginOpts || pluginOpts.display === false) return;
-    const ctx = chart.ctx;
-    chart.data.datasets.forEach((dataset, datasetIndex) => {
-      const meta = chart.getDatasetMeta(datasetIndex);
-      if (meta.hidden) return;
-      meta.data.forEach((element, dataIndex) => {
-        const value = dataset.data[dataIndex];
-        const context = { chart, dataIndex, datasetIndex, dataset };
-        let text = '';
-        try {
-          text = typeof pluginOpts.formatter === 'function' ? pluginOpts.formatter(value, context) : String(value);
-        } catch (e) { text = ''; }
-        if (!text) return;
-        ctx.save();
-        ctx.fillStyle = pluginOpts.color || '#000';
-        const font = pluginOpts.font || {};
-        const weight = font.weight || 400;
-        const size = font.size || 12;
-        const family = font.family || 'sans-serif';
-        ctx.font = weight + ' ' + size + 'px ' + family;
-        ctx.textBaseline = 'middle';
-        let x, y;
-        if (pluginOpts.anchor === 'end' && pluginOpts.align === 'right') {
-          x = element.x + 6;
-          y = element.y;
-          ctx.textAlign = 'left';
-          if (pluginOpts.clamp && chart.chartArea) {
-            const maxX = chart.chartArea.right - 2;
-            const textWidth = ctx.measureText(text).width;
-            if (x + textWidth > maxX) x = maxX - textWidth;
-          }
-        } else {
-          const pos = (element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y });
-          x = pos.x; y = pos.y;
-          ctx.textAlign = 'center';
-        }
-        ctx.fillText(text, x, y);
-        ctx.restore();
-      });
-    });
-  }
-};
-
-Chart.register(...registerables, SimpleDataLabelsPlugin);
+Chart.register(...registerables, ChartDataLabels);
 
 /* =========================================================
    EMBEDDED SURVEY DATA (3,473 records) + LOGO
@@ -135,7 +90,7 @@ const DASHBOARD_CSS = `
   }
   .eyebrow::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal);}
   .hero h1{ font-size:clamp(26px,3.4vw,42px); font-weight:700; letter-spacing:-0.01em; max-width:1120px; line-height:1.28; }
-  .hero h1 em{font-style:normal; color:var(--gold);}
+  .hero h1 em{font-style:normal; color:var(--gold); display:block; margin-top:4px;}
   .hero p{color:var(--text-mid); max-width:640px; margin-top:16px; font-size:15px;}
 
   .kpi-row{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:40px;}
@@ -571,7 +526,7 @@ const DASHBOARD_BODY_HTML = `<nav>
 </main>
 
 <footer>
-  ที่มา: ETDA — โครงการวัดมูลค่าพาณิชย์อิเล็กทรอนิกส์และสถานะการเปลี่ยนผ่านด้านดิจิทัล ภาคครัวเรือน (ผู้ประกอบการที่ไม่ได้จดทะเบียนนิติบุคคล) · ข้อมูล ณ วันที่ 14 กรกฎาคม 2569 · n = 3,473 · แดชบอร์ดนี้กรองข้อมูลแบบ real-time จากข้อมูลระดับผู้ตอบแบบสำรวจ · สร้างโดย Claude
+  ที่มา: ETDA — โครงการวัดมูลค่าพาณิชย์อิเล็กทรอนิกส์และสถานะการเปลี่ยนผ่านด้านดิจิทัล ภาคครัวเรือน (ผู้ประกอบการที่ไม่ได้จดทะเบียนนิติบุคคล) · ข้อมูล ณ วันที่ 14 กรกฎาคม 2569
 </footer>`;
 
 export default function App() {
@@ -1448,7 +1403,7 @@ function bindFilters(){
 }
 
 function initDashboard(){
-  // datalabels handled via SimpleDataLabelsPlugin registered at module scope
+  Chart.register(ChartDataLabels);
   Chart.defaults.font.family = baseFont();
   Chart.defaults.color = C.textMid;
   Chart.defaults.font.size = 11.5;
