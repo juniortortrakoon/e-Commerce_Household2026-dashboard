@@ -64,9 +64,9 @@ const DASHBOARD_CSS = `
   }
   .sidenav{ display:flex; flex-direction:column; gap:2px; }
   .sidenav a{
-    position:relative; color:#B7BCCC; text-decoration:none; font-size:12.5px;
+    position:relative; color:#B7BCCC; text-decoration:none; font-size:12px; line-height:1.35;
     padding:10px 14px; border-radius:9px; transition:all .15s ease;
-    font-family:'Noto Sans Thai'; letter-spacing:0.01em;
+    font-family:'Noto Sans Thai'; letter-spacing:0.01em; display:block;
   }
   .sidenav a:hover{background:rgba(255,255,255,0.08); color:#fff;}
   .sidenav a.active{
@@ -363,17 +363,17 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
 <div class="app-shell">
   <aside class="sidebar">
     <nav class="sidenav">
-      <a href="#overview">ภาพรวม</a>
-      <a href="#valueinfo">มูลค่าพาณิชย์</a>
-      <a href="#channelvalue">ช่องทางการขาย</a>
-      <a href="#region">ภูมิภาค</a>
-      <a href="#c2x">C2B/C2C/C2G</a>
+      <a href="#overview">สรุปตัวเลขสำคัญ</a>
+      <a href="#valueinfo">มูลค่าตลาด e-Commerce ไทย</a>
+      <a href="#channelvalue">ช่องทางการขายออนไลน์/ออฟไลน์</a>
+      <a href="#region">รายได้แยกภูมิภาค</a>
+      <a href="#c2x">ประเภทลูกค้า (C2B/C2C/C2G)</a>
       <a href="#dmi">Digital Maturity</a>
-      <a href="#products">สินค้า</a>
+      <a href="#products">หมวดหมู่สินค้า</a>
       <a href="#ops">การดำเนินธุรกิจ</a>
-      <a href="#registration">จดทะเบียน</a>
-      <a href="#foreign">ต่างประเทศ/Live</a>
-      <a href="#demo">ผู้ตอบแบบสำรวจ</a>
+      <a href="#registration">การจดทะเบียนธุรกิจ</a>
+      <a href="#foreign">ผลกระทบต่างประเทศ/Live</a>
+      <a href="#demo">ข้อมูลผู้ตอบแบบสำรวจ</a>
     </nav>
 
   </aside>
@@ -567,7 +567,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
       <div class="sec-desc">รายได้เฉลี่ยและจำนวนผู้ตอบแบบสำรวจ แยกตามภูมิภาค</div></div>
     </div>
     <div class="grid2">
-      <div class="card"><h3>รายได้เฉลี่ยต่อเดือน (บาท)</h3><div class="hint">รวม vs. เฉพาะออนไลน์ · เรียงจากสูงไปต่ำ</div><div class="chart-wrap" style="height:340px;"><canvas id="chartRegionRev"></canvas></div><div class="insight-callout" id="regionCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="regionIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="regionLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="regionHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="regionSupport"></div></div></div></div>
+      <div class="card"><h3>รายได้เฉลี่ยต่อเดือน (บาท)</h3><div class="hint">รวม vs. เฉพาะออนไลน์ · เรียงตามรายได้ออนไลน์จากสูงไปต่ำ</div><div class="chart-wrap" style="height:340px;"><canvas id="chartRegionRev"></canvas></div><div class="insight-callout" id="regionCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="regionIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="regionLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="regionHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="regionSupport"></div></div></div></div>
       <div class="card"><h3>สัดส่วนผู้ตอบแบบสำรวจ</h3><div class="hint">แยกตามภูมิภาค (ราย) · % ของยอดที่กรองแล้ว</div><div class="chart-wrap" style="height:340px;"><canvas id="chartRegionCount"></canvas></div></div>
     </div>
   </section>
@@ -733,7 +733,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
           </div>
         </div>
       </div>
-      <div class="insight-callout" id="regCompareCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="regCompareIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="regCompareLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="regCompareHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="regCompareSupport"></div></div></div><div class="note" id="regRecommend"></div>
+      <div class="insight-callout" id="regCompareCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="regCompareIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="regCompareLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="regCompareHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="regCompareSupport"></div></div></div><div class="note" id="regRecommend" style="font-size:11px; color:var(--text-dim); line-height:1.6; margin-top:10px;"></div>
     </div>
     <div class="grid2">
       <div class="card">
@@ -1250,13 +1250,13 @@ function renderAll(){
 /* ---- 01 Region ---- */
 function renderRegion(){
   const data = computeRegionBreakdown();
-  const sortedRev = [...data].sort((a,b)=>b.avgRev-a.avgRev);
+  const sortedRev = [...data].sort((a,b)=>b.avgOrev-a.avgOrev);
   killChart('regionRev');
   charts.regionRev = new Chart(document.getElementById('chartRegionRev'), {
     type:'bar',
     data:{ labels: sortedRev.map(d=>d.region), datasets:[
-      {label:'รวม', data: sortedRev.map(d=>d.avgRev), backgroundColor:C.gold, borderRadius:4, maxBarThickness:14},
-      {label:'ออนไลน์', data: sortedRev.map(d=>d.avgOrev), backgroundColor:C.teal, borderRadius:4, maxBarThickness:14}
+      {label:'ออนไลน์', data: sortedRev.map(d=>d.avgOrev), backgroundColor:C.teal, borderRadius:4, maxBarThickness:14},
+      {label:'รวม', data: sortedRev.map(d=>d.avgRev), backgroundColor:C.gold, borderRadius:4, maxBarThickness:14}
     ]},
     options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
       layout:{padding:{right:46}},
@@ -1288,13 +1288,13 @@ function renderRegion(){
     }
   });
 
-  const top = sortedRev[0], bottom = sortedRev[sortedRev.length-1];
-  if(top && bottom && top!==bottom){
-    setInsightCard('region', C.gold,
-      top.region+'มีรายได้เฉลี่ยสูงสุด',
-      'เฉลี่ย <b style="color:'+C.gold+'">'+fmtNum(top.avgRev)+' บาท/เดือน</b> ขณะที่ '+bottom.region+'ต่ำสุดที่ '+fmtNum(bottom.avgRev)+' บาท');
+  const topO = sortedRev[0], bottomO = sortedRev[sortedRev.length-1];
+  if(topO && bottomO && topO!==bottomO){
+    setInsightCard('region', C.teal,
+      topO.region+'มีรายได้ออนไลน์เฉลี่ยสูงสุด',
+      'เฉลี่ย <b style="color:'+C.teal+'">'+fmtNum(topO.avgOrev)+' บาท/เดือน</b> ขณะที่ '+bottomO.region+'ต่ำสุดที่ '+fmtNum(bottomO.avgOrev)+' บาท');
   } else {
-    setInsightCard('region', C.gold, null);
+    setInsightCard('region', C.teal, null);
   }
 }
 
