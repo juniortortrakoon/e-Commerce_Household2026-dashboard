@@ -365,17 +365,13 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     <nav class="sidenav">
       <a href="#overview">ภาพรวม</a>
       <a href="#valueinfo">มูลค่าพาณิชย์</a>
-      <a href="#channelvalue">ช่องทางการขาย (มูลค่า)</a>
+      <a href="#channelvalue">ช่องทางการขาย</a>
       <a href="#region">ภูมิภาค</a>
-      <a href="#channels">ช่องทางขาย</a>
       <a href="#c2x">C2B/C2C/C2G</a>
       <a href="#dmi">Digital Maturity</a>
-      <a href="#ops">การชำระ/ขนส่ง</a>
       <a href="#products">สินค้า</a>
-      <a href="#impact">DMI x รายได้</a>
-      <a href="#regularity">ต้นทุน</a>
+      <a href="#ops">การดำเนินธุรกิจ</a>
       <a href="#registration">จดทะเบียน</a>
-      <a href="#techready">ความพร้อมเทคโนโลยี</a>
       <a href="#foreign">ต่างประเทศ/Live</a>
       <a href="#demo">ผู้ตอบแบบสำรวจ</a>
     </nav>
@@ -553,6 +549,15 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     </div>
 
     <div class="value-note">เป็นค่าคงที่ ไม่ตอบสนองต่อตัวกรองด้านบน</div>
+
+    <div style="margin:28px 0 16px; padding-top:20px; border-top:1px dashed var(--border);">
+      <h3 style="font-size:16px; margin-bottom:4px;">ช่องทางการขาย: ออนไลน์ vs. ออฟไลน์</h3>
+      <div class="hint" style="margin-bottom:14px;">E-Marketplace และ Social Media ครองสัดส่วนรายได้ออนไลน์ ส่วนออฟไลน์ยังพึ่งพาหน้าร้านเป็นหลัก · ข้อมูลตามตัวกรองด้านบน</div>
+    </div>
+    <div class="grid2">
+      <div class="card"><h3>สัดส่วนรายได้ออนไลน์ แยกแพลตฟอร์ม</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออนไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOnlineMix"></canvas></div></div>
+      <div class="card"><h3>สัดส่วนรายได้ออฟไลน์ แยกช่องทาง</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออฟไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOfflineMix"></canvas></div></div>
+    </div>
   </section>
 
   <section id="region">
@@ -567,21 +572,9 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     </div>
   </section>
 
-  <section id="channels">
-    <div class="sec-head">
-      <span class="sec-num">02</span>
-      <div><h2>ช่องทางการขาย: ออนไลน์ vs. ออฟไลน์</h2>
-      <div class="sec-desc">E-Marketplace และ Social Media ครองสัดส่วนรายได้ออนไลน์ ส่วนออฟไลน์ยังพึ่งพาหน้าร้านเป็นหลัก</div></div>
-    </div>
-    <div class="grid2">
-      <div class="card"><h3>สัดส่วนรายได้ออนไลน์ แยกแพลตฟอร์ม</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออนไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOnlineMix"></canvas></div></div>
-      <div class="card"><h3>สัดส่วนรายได้ออฟไลน์ แยกช่องทาง</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออฟไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOfflineMix"></canvas></div></div>
-    </div>
-  </section>
-
   <section id="c2x">
     <div class="sec-head">
-      <span class="sec-num">03</span>
+      <span class="sec-num">02</span>
       <div><h2>สัดส่วนลูกค้า C2C / C2B / C2G</h2>
       <div class="sec-desc">สัดส่วนและรายได้เฉลี่ย แยกตามประเภทลูกค้า</div></div>
     </div>
@@ -593,9 +586,9 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
 
   <section id="dmi">
     <div class="sec-head">
-      <span class="sec-num">04</span>
+      <span class="sec-num">03</span>
       <div><h2>Digital Maturity Index (DMI)</h2>
-      <div class="sec-desc">คะแนนเฉลี่ยความพร้อมด้านดิจิทัล 5 มิติ จากคะแนนเต็ม 4.0 (ปรับปรุงล่าสุด: รวมคำถามด้านความพร้อม AI ในบางมิติ) พร้อมเทียบกับที่ผู้ประกอบการประเมินตนเอง</div></div>
+      <div class="sec-desc">คะแนนเฉลี่ยความพร้อมด้านดิจิทัล 5 มิติ จากคะแนนเต็ม 4.0 (ปรับปรุงล่าสุด: รวมคำถามด้านความพร้อม AI ในบางมิติ) พร้อมเทียบกับที่ผู้ประกอบการประเมินตนเอง และผลต่อรายได้ออนไลน์จริง</div></div>
     </div>
     <div class="level-legend" id="dmiLevelLegend"></div>
     <div class="dmi-hero" style="margin-bottom:18px;">
@@ -612,35 +605,10 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
       <div class="chart-wrap" style="height:260px;"><canvas id="chartSelfDmi"></canvas></div>
       <div class="insight-callout" id="selfDmiCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="selfDmiIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="selfDmiLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="selfDmiHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="selfDmiSupport"></div></div></div>
     </div>
-  </section>
 
-  <section id="ops">
-    <div class="sec-head">
-      <span class="sec-num">05</span>
-      <div><h2>ช่องทางชำระเงิน ขนส่ง และอุปสรรคการปรับตัวดิจิทัล</h2>
-      <div class="sec-desc">ตอบได้มากกว่า 1 ข้อ ตัวเลขจึงไม่รวมเป็น 100%</div></div>
-    </div>
-    <div class="grid3">
-      <div class="card"><h3>ช่องทางชำระเงิน</h3><div class="hint">% ของผู้ตอบที่ใช้ช่องทางนี้</div><div class="barlist" id="listPay"></div></div>
-      <div class="card"><h3>ช่องทางขนส่ง</h3><div class="hint">% ของผู้ตอบที่ใช้ช่องทางนี้</div><div class="barlist" id="listShip"></div></div>
-      <div class="card"><h3>อุปสรรคสู่การเป็นดิจิทัล</h3><div class="hint">% ของผู้ตอบที่ระบุเป็นอุปสรรค</div><div class="barlist" id="listBarrier"></div></div>
-    </div>
-  </section>
-
-  <section id="products">
-    <div class="sec-head">
-      <span class="sec-num">06</span>
-      <div><h2>หมวดหมู่สินค้า/บริการยอดนิยม</h2>
-      <div class="sec-desc">สัดส่วนผู้ขายในแต่ละหมวดสินค้า/บริการ</div></div>
-    </div>
-    <div class="card"><h3>สัดส่วนผู้ขายในแต่ละหมวดสินค้า (Top 15)</h3><div class="hint">% ของผู้ตอบแบบสำรวจที่มีรายได้จากหมวดสินค้านี้</div><div class="chart-wrap" style="height:460px;"><canvas id="chartProducts"></canvas></div><div class="insight-callout" id="productsCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="productsIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="productsLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="productsHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="productsSupport"></div></div></div></div>
-  </section>
-
-  <section id="impact">
-    <div class="sec-head">
-      <span class="sec-num">07</span>
-      <div><h2>DMI ส่งผลต่อรายได้ออนไลน์จริงหรือไม่</h2>
-      <div class="sec-desc">เปรียบเทียบ Digital Maturity กับรายได้ออนไลน์จริง</div></div>
+    <div style="margin:28px 0 16px; padding-top:20px; border-top:1px dashed var(--border);">
+      <h3 style="font-size:16px; margin-bottom:4px;">DMI ส่งผลต่อรายได้ออนไลน์จริงหรือไม่</h3>
+      <div class="hint" style="margin-bottom:14px;">เปรียบเทียบ Digital Maturity กับรายได้ออนไลน์จริง</div>
     </div>
     <div class="grid2">
       <div class="card"><h3>คะแนน Digital Maturity เฉลี่ย แยกภูมิภาค</h3><div class="hint">เรียงจากสูงสุดไปต่ำสุด · จากคะแนนเต็ม 4.0</div><div class="level-legend" id="dmiLevelLegendRegion"></div><div class="chart-wrap" style="height:300px;"><canvas id="chartDmiByRegion"></canvas></div><div class="insight-callout" id="dmiRegionCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="dmiRegionIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="dmiRegionLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="dmiRegionHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="dmiRegionSupport"></div></div></div></div>
@@ -654,11 +622,31 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     </div>
   </section>
 
-  <section id="regularity">
+  <section id="products">
     <div class="sec-head">
-      <span class="sec-num">08</span>
-      <div><h2>ความสม่ำเสมอในการขาย และโครงสร้างต้นทุน</h2>
-      <div class="sec-desc">รูปแบบความสม่ำเสมอในการขาย และโครงสร้างต้นทุนเฉลี่ย</div></div>
+      <span class="sec-num">04</span>
+      <div><h2>หมวดหมู่สินค้า/บริการยอดนิยม</h2>
+      <div class="sec-desc">สัดส่วนผู้ขายในแต่ละหมวดสินค้า/บริการ</div></div>
+    </div>
+    <div class="card"><h3>สัดส่วนผู้ขายในแต่ละหมวดสินค้า (Top 15)</h3><div class="hint">% ของผู้ตอบแบบสำรวจที่มีรายได้จากหมวดสินค้านี้</div><div class="chart-wrap" style="height:460px;"><canvas id="chartProducts"></canvas></div><div class="insight-callout" id="productsCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="productsIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="productsLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="productsHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="productsSupport"></div></div></div></div>
+  </section>
+
+  <section id="ops">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <div><h2>การดำเนินธุรกิจ</h2>
+      <div class="sec-desc">ช่องทางชำระเงิน ขนส่ง ความสม่ำเสมอในการขาย ต้นทุน และความพร้อมด้านเทคโนโลยี</div></div>
+    </div>
+    <div class="grid3">
+      <div class="card"><h3>ช่องทางชำระเงิน</h3><div class="hint">% ของผู้ตอบที่ใช้ช่องทางนี้</div><div class="barlist" id="listPay"></div></div>
+      <div class="card"><h3>ช่องทางขนส่ง</h3><div class="hint">% ของผู้ตอบที่ใช้ช่องทางนี้</div><div class="barlist" id="listShip"></div></div>
+      <div class="card"><h3>อุปสรรคสู่การเป็นดิจิทัล</h3><div class="hint">% ของผู้ตอบที่ระบุเป็นอุปสรรค</div><div class="barlist" id="listBarrier"></div></div>
+    </div>
+  
+
+    <div style="margin:28px 0 16px; padding-top:20px; border-top:1px dashed var(--border);">
+      <h3 style="font-size:16px; margin-bottom:4px;">ความสม่ำเสมอในการขาย และโครงสร้างต้นทุน</h3>
+      <div class="hint" style="margin-bottom:14px;">รูปแบบความสม่ำเสมอในการขาย และโครงสร้างต้นทุนเฉลี่ย</div>
     </div>
     <div class="grid2">
       <div class="card">
@@ -685,11 +673,32 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
         </div>
       </div>
     </div>
+  
+
+    <div style="margin:28px 0 16px; padding-top:20px; border-top:1px dashed var(--border);">
+      <h3 style="font-size:16px; margin-bottom:4px;">ความพร้อมด้านเทคโนโลยีดิจิทัล</h3>
+      <div class="hint" style="margin-bottom:14px;">งบประมาณที่ลงทุน และเทคโนโลยีที่ผู้ประกอบการสนใจนำไปใช้</div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>งบประมาณเทคโนโลยีดิจิทัลต่อปี</h3>
+        <div class="hint">จำนวนผู้ตอบ</div>
+        <div class="chart-wrap" style="height:260px;"><canvas id="chartTechBudget"></canvas></div>
+        <div class="insight-callout" id="techBudgetCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="techBudgetIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="techBudgetLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="techBudgetHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="techBudgetSupport"></div></div></div>
+      </div>
+      <div class="card">
+        <h3>เทคโนโลยีที่สนใจนำไปใช้ในธุรกิจ</h3>
+        <div class="hint">% ของผู้ตอบที่สนใจ (Top 10)</div>
+        <div class="chart-wrap" style="height:280px;"><canvas id="chartTechInterest"></canvas></div>
+        <div class="insight-callout" id="techInterestCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="techInterestIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="techInterestLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="techInterestHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="techInterestSupport"></div></div></div>
+      </div>
+    </div>
+  
   </section>
 
   <section id="registration">
     <div class="sec-head">
-      <span class="sec-num">09</span>
+      <span class="sec-num">06</span>
       <div><h2>สถานะและแผนการจดทะเบียนธุรกิจ</h2>
       <div class="sec-desc">สถานะปัจจุบัน ผลลัพธ์ แผนในอนาคต และ SME One ID</div></div>
     </div>
@@ -755,31 +764,9 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     </div>
   </section>
 
-  <section id="techready">
-    <div class="sec-head">
-      <span class="sec-num">10</span>
-      <div><h2>ความพร้อมด้านเทคโนโลยีดิจิทัล</h2>
-      <div class="sec-desc">งบประมาณที่ลงทุน และเทคโนโลยีที่ผู้ประกอบการสนใจนำไปใช้</div></div>
-    </div>
-    <div class="grid2">
-      <div class="card">
-        <h3>งบประมาณเทคโนโลยีดิจิทัลต่อปี</h3>
-        <div class="hint">จำนวนผู้ตอบ</div>
-        <div class="chart-wrap" style="height:260px;"><canvas id="chartTechBudget"></canvas></div>
-        <div class="insight-callout" id="techBudgetCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="techBudgetIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="techBudgetLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="techBudgetHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="techBudgetSupport"></div></div></div>
-      </div>
-      <div class="card">
-        <h3>เทคโนโลยีที่สนใจนำไปใช้ในธุรกิจ</h3>
-        <div class="hint">% ของผู้ตอบที่สนใจ (Top 10)</div>
-        <div class="chart-wrap" style="height:280px;"><canvas id="chartTechInterest"></canvas></div>
-        <div class="insight-callout" id="techInterestCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="techInterestIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="techInterestLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="techInterestHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="techInterestSupport"></div></div></div>
-      </div>
-    </div>
-  </section>
-
   <section id="foreign">
     <div class="sec-head">
-      <span class="sec-num">11</span>
+      <span class="sec-num">07</span>
       <div><h2>ผลกระทบจากสินค้าต่างประเทศ และ Live Commerce</h2>
       <div class="sec-desc">มุมมองต่อผลกระทบจากสินค้า/บริการต่างประเทศ</div></div>
     </div>
@@ -816,7 +803,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
 
   <section id="demo">
     <div class="sec-head">
-      <span class="sec-num">12</span>
+      <span class="sec-num">08</span>
       <div><h2>ลักษณะผู้ตอบแบบสำรวจ</h2>
       <div class="sec-desc" id="demoDesc">ข้อมูลประชากรของกลุ่มที่กรองในขณะนี้ · สถานะการจดทะเบียนดูได้ที่หัวข้อ 09</div></div>
     </div>
@@ -834,6 +821,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
       <div class="card"><h3>รายได้ครัวเรือนต่อเดือน</h3><div class="chart-wrap" style="height:280px;"><canvas id="chartIncome"></canvas></div></div>
     </div>
   </section>
+
 
 </main>
 
@@ -853,6 +841,7 @@ export default function App() {
     didInit.current = true;
 
     function runDashboard() {
+
 /* =========================================================
    FIELD INDEX MAP (matches Python extraction order)
    ========================================================= */
@@ -1905,17 +1894,6 @@ function initDashboard(){
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncLayoutOffsets); }
 }
 
-(function waitForChart(retries){
-  if (typeof Chart !== 'undefined' && typeof ChartDataLabels !== 'undefined') {
-    initDashboard();
-  } else if (retries > 0) {
-    setTimeout(function(){ waitForChart(retries - 1); }, 150);
-  } else {
-    document.querySelectorAll('.chart-wrap').forEach(function(el){
-      el.innerHTML = '<div class="nodata" style="color:#E1544A;">ไม่สามารถโหลดไลบรารีกราฟได้ กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</div>';
-    });
-  }
-})(40);
 /* ---- Static value infographics (report-sourced, not filter-reactive) ---- */
 function renderValueDonut(){
   const el = document.getElementById('chartValueDonut');
