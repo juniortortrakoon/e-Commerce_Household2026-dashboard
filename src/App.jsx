@@ -375,18 +375,16 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     </div>
     <button id="fReset"><span class="i18n" data-en="Clear all filters">ล้างตัวกรองทั้งหมด</span></button>
   </div>
-  <div class="lang-toggle" id="langToggle">
-    <button class="lang-btn active" data-lang="th">TH</button>
-    <button class="lang-btn" data-lang="en">ENG</button>
+  <div class="lang-toggle" id="langToggle" style="display:flex; align-items:center; background:#F0F1F4; border:1px solid rgba(20,33,61,0.09); border-radius:22px; padding:4px; gap:1px; flex-shrink:0; margin-left:10px;">
+    <button class="lang-btn active" data-lang="th" style="font-family:'Noto Sans Thai'; font-size:12.5px; font-weight:800; letter-spacing:0.02em; padding:8px 18px; border-radius:18px; border:none; background:#fff; color:#1A2233; cursor:pointer; box-shadow:0 1px 4px rgba(20,33,61,0.12), 0 0 0 1px rgba(20,33,61,0.03);">TH</button>
+    <button class="lang-btn" data-lang="en" style="font-family:'Noto Sans Thai'; font-size:12.5px; font-weight:700; letter-spacing:0.02em; padding:8px 18px; border-radius:18px; border:none; background:none; color:#8891A0; cursor:pointer; box-shadow:none;">ENG</button>
   </div>
 </header>
 
 <div class="app-shell">
   <aside class="sidebar">
     <nav class="sidenav">
-      <a href="#overview"><span class="i18n" data-en="Key Figures">สรุปตัวเลขสำคัญ</span></a>
-      <a href="#valueinfo"><span class="i18n" data-en="Thailand e-Commerce Market Value">มูลค่าตลาด e-Commerce ไทย</span></a>
-      <a href="#channelvalue"><span class="i18n" data-en="Online/Offline Sales Channels">ช่องทางการขายออนไลน์/ออฟไลน์</span></a>
+      <a href="#overview"><span class="i18n" data-en="Overview">ภาพรวม</span></a>
       <a href="#region"><span class="i18n" data-en="Revenue by Region">รายได้แยกภูมิภาค</span></a>
       <a href="#c2x"><span class="i18n" data-en="Customer Type (C2B/C2C/C2G)">ประเภทลูกค้า (C2B/C2C/C2G)</span></a>
       <a href="#dmi">Digital Maturity</a>
@@ -394,7 +392,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
       <a href="#ops"><span class="i18n" data-en="Business Operations">การดำเนินธุรกิจ</span></a>
       <a href="#registration"><span class="i18n" data-en="Business Registration">การจดทะเบียนธุรกิจ</span></a>
       <a href="#foreign"><span class="i18n" data-en="Foreign Impact / Live Commerce">ผลกระทบต่างประเทศ/Live</span></a>
-      <a href="#demo"><span class="i18n" data-en="Respondent Demographics">ข้อมูล<span class="i18n" data-en="Respondents">ผู้ตอบแบบสำรวจ</span></span></a>
+      <a href="#demo"><span class="i18n" data-en="Respondent Demographics">ข้อมูลผู้ตอบแบบสำรวจ</span></a>
     </nav>
 
   </aside>
@@ -405,8 +403,8 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
   <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="eyebrow">Household E-Commerce Survey · 2569</div>
-    <h1><span class="i18n" data-en="E-Commerce Status and Digital Transition">สถานะพาณิชย์อิเล็กทรอนิกส์และการเปลี่ยนผ่านด้านดิจิทัล</span><em><span class="i18n" data-en="of Household Sector Entrepreneurs, 2026">ของผู้ประกอบการภาคครัวเรือน ประจำปี 2569</span></em></h1>
-    <p><span class="i18n" data-en="Summary from 3,254 respondents nationwide, covering online/offline selling behavior, income structure, payment-shipping channels, and Digital Maturity Index">สรุปผลจาก<span class="i18n" data-en="Respondents">ผู้ตอบแบบสำรวจ</span> 3,254 ราย ทั่วประเทศไทย ครอบคลุมพฤติกรรมการขายออนไลน์/ออฟไลน์ โครงสร้างรายได้ <span class="i18n" data-en="Payment Channels">ช่องทางชำระเงิน</span>-ขนส่ง และระดับความพร้อมด้านดิจิทัล (Digital Maturity Index)</span></p>
+    <h1><span class="i18n" data-en="E-Commerce Status and Digital Transformation">สถานะพาณิชย์อิเล็กทรอนิกส์และการเปลี่ยนผ่านด้านดิจิทัล</span><em><span class="i18n" data-en="of Household Sector Entrepreneurs in Thailand, 2026">ของผู้ประกอบการภาคครัวเรือนในประเทศไทย ประจำปี 2569</span></em></h1>
+
     <p class="hero-hint"><span class="i18n" data-en="Use the filters above to break down data by region, area, Generation, and registration status">ใช้ตัวกรองด้านบนเพื่อดูข้อมูลแยกตามภูมิภาค เขตพื้นที่ Generation และสถานะการจดทะเบียน</span></p>
 
     <div class="kpi-row" id="overview">
@@ -422,30 +420,30 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
 <main>
 
   <section id="valueinfo" class="value-section">
-    <div class="value-title">
-      ปี 2569 ผลการคำนวณมูลค่าภาคครัวเรือนฝั่งผู้ขายเบื้องต้นอยู่ที่ <b>5.01 ล้านล้านบาท</b> โดยมี C2C เป็นสัดส่วนหลักกว่า <b>93.05%</b> และรายได้เฉลี่ยผู้ขายเพิ่มขึ้นเป็น <b>30,178 บาทต่อเดือน</b>
+    <div class="value-title" data-en-html="In 2026, the preliminary calculated value of the household sector (seller side) stands at <b>5.01 trillion THB</b>, with C2C accounting for the largest share at over <b>93.05%</b>, and average seller revenue rising to <b>30,178 THB/month</b>">
+      ปี 2569 ผลการคำนวณมูลค่าภาคครัวเรือนฝั่งผู้ขายเบื้องต้นอยู่ที่ <b>5.01 <span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span></b> โดยมี C2C เป็นสัดส่วนหลักกว่า <b>93.05%</b> และ<span class="i18n" data-en="Avg. Revenue">รายได้เฉลี่ย</span>ผู้ขายเพิ่มขึ้นเป็น <b>30,178 บาทต่อเดือน</b>
     </div>
 
-    <div class="value-banner">ผลการคำนวณธุรกรรมทางอิเล็กทรอนิกส์ ภาคครัวเรือน ส่วนของผู้ขาย ปี 2569</div>
+    <div class="value-banner"><span class="i18n" data-en="Household Sector Electronic Transaction Value (Seller Side), 2026">ผลการคำนวณธุรกรรมทางอิเล็กทรอนิกส์ ภาคครัวเรือน ส่วนของผู้ขาย ปี 2569</span></div>
 
     <div class="value-top-grid">
       <div class="value-total-card">
         <div class="value-total-top">
           <div class="value-icon-circle">🛒</div>
           <div>
-            <div class="value-total-label">มูลค่า e-Commerce รวม</div>
-            <div class="value-total-num">5.01 <span class="unit">ล้านล้านบาท / ปี</span></div>
+            <div class="value-total-label"><span class="i18n" data-en="Total e-Commerce Value">มูลค่า e-Commerce รวม</span></div>
+            <div class="value-total-num">5.01 <span class="unit"><span class="i18n" data-en="Trillion THB / year"><span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span> / ปี</span></span></div>
             <div class="value-total-trend">▲ +37.54% YoY</div>
           </div>
         </div>
         <div class="value-stat-row">
           <div class="value-stat">
-            <div class="label">ประชากรผู้ขาย</div>
-            <div class="num">14.43 <span class="unit">ล้านคน</span></div>
+            <div class="label"><span class="i18n" data-en="Seller Population">ประชากรผู้ขาย</span></div>
+            <div class="num">14.43 <span class="unit"><span class="i18n" data-en="Million people">ล้านคน</span></span></div>
             <div class="trend">▲ +2.86% YoY</div>
           </div>
           <div class="value-stat">
-            <div class="label"><span class="i18n" data-en="Avg. Monthly Revenue">รายได้เฉลี่ยต่อเดือน</span></div>
+            <div class="label"><span class="i18n" data-en="Avg. Monthly Revenue"><span class="i18n" data-en="Avg. Revenue">รายได้เฉลี่ย</span>ต่อเดือน</span></div>
             <div class="num">30,178 <span class="unit">บาท</span></div>
             <div class="trend">▲ +33.95% YoY</div>
           </div>
@@ -458,7 +456,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
           <div class="value-donut-center">🛒</div>
         </div>
         <div>
-          <div class="value-struct-title">โครงสร้างมูลค่า e-Commerce ปี 2569 (ล้านล้านบาท)</div>
+          <div class="value-struct-title"><span class="i18n" data-en="e-Commerce Value Structure 2026 (Trillion THB)">โครงสร้างมูลค่า e-Commerce ปี 2569 (<span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span>)</span></div>
           <div class="value-struct-row">
             <div class="value-struct-legend"><span class="dot" style="background:var(--navy)"></span>C2C</div>
             <div class="value-struct-bars">
@@ -483,68 +481,68 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
             </div>
             <div class="value-struct-yoy">▲ +12.80% YoY</div>
           </div>
-          <div class="hint" style="margin-top:10px; margin-bottom:0;">แท่งสีเทาอ่อน = ปี 2568 · แท่งสี = ปี 2569</div>
+          <div class="hint" style="margin-top:10px; margin-bottom:0;"><span class="i18n" data-en="Light gray bar = 2025 · Colored bar = 2026">แท่งสีเทาอ่อน = ปี 2568 · แท่งสี = ปี 2569</span></div>
         </div>
       </div>
     </div>
 
-    <div class="value-connector">ขนาดผู้ขายและ<span class="i18n" data-en="Avg. Monthly Revenue">รายได้เฉลี่ยต่อเดือน</span>จำแนกตามลักษณะธุรกรรม</div>
+    <div class="value-connector"><span class="i18n" data-en="Seller size and average monthly revenue by transaction type">ขนาดผู้ขายและ<span class="i18n" data-en="Avg. Revenue">รายได้เฉลี่ย</span>ต่อเดือนจำแนกตามลักษณะธุรกรรม</span></div>
 
     <div class="value-breakdown-grid">
       <div class="value-breakdown-card">
         <div class="value-breakdown-head" style="background:var(--navy)">C2C</div>
         <div class="value-breakdown-body">
           <div class="value-breakdown-icon">🤝</div>
-          <div class="sub-label">รายได้เฉลี่ย</div>
-          <div class="sub-value">28,180 <span class="unit">บาท / เดือน</span></div>
+          <div class="sub-label"><span class="i18n" data-en="Avg. Revenue">รายได้เฉลี่ย</span></div>
+          <div class="sub-value">28,180 <span class="unit"><span class="i18n" data-en="THB / month">บาท / เดือน</span></span></div>
           <div class="value-breakdown-divider"></div>
-          <div class="sub-label">ประชากรผู้ขาย</div>
-          <div class="sub-value">14.02 <span class="unit">ล้านคน</span></div>
+          <div class="sub-label"><span class="i18n" data-en="Seller Population">ประชากรผู้ขาย</span></div>
+          <div class="sub-value">14.02 <span class="unit"><span class="i18n" data-en="Million people">ล้านคน</span></span></div>
         </div>
       </div>
       <div class="value-breakdown-card">
         <div class="value-breakdown-head" style="background:var(--teal)">C2B</div>
         <div class="value-breakdown-body">
           <div class="value-breakdown-icon">🏢</div>
-          <div class="sub-label">รายได้เฉลี่ย</div>
-          <div class="sub-value">7,198 <span class="unit">บาท / เดือน</span></div>
+          <div class="sub-label"><span class="i18n" data-en="Avg. Revenue">รายได้เฉลี่ย</span></div>
+          <div class="sub-value">7,198 <span class="unit"><span class="i18n" data-en="THB / month">บาท / เดือน</span></span></div>
           <div class="value-breakdown-divider"></div>
-          <div class="sub-label">ประชากรผู้ขาย</div>
-          <div class="sub-value">2.14 <span class="unit">ล้านคน</span></div>
+          <div class="sub-label"><span class="i18n" data-en="Seller Population">ประชากรผู้ขาย</span></div>
+          <div class="sub-value">2.14 <span class="unit"><span class="i18n" data-en="Million people">ล้านคน</span></span></div>
         </div>
       </div>
       <div class="value-breakdown-card">
         <div class="value-breakdown-head" style="background:#5AB8E8">C2G</div>
         <div class="value-breakdown-body">
           <div class="value-breakdown-icon">🏛️</div>
-          <div class="sub-label">รายได้เฉลี่ย</div>
-          <div class="sub-value">4,008 <span class="unit">บาท / เดือน</span></div>
+          <div class="sub-label"><span class="i18n" data-en="Avg. Revenue">รายได้เฉลี่ย</span></div>
+          <div class="sub-value">4,008 <span class="unit"><span class="i18n" data-en="THB / month">บาท / เดือน</span></span></div>
           <div class="value-breakdown-divider"></div>
-          <div class="sub-label">ประชากรผู้ขาย</div>
-          <div class="sub-value">0.76 <span class="unit">ล้านคน</span></div>
+          <div class="sub-label"><span class="i18n" data-en="Seller Population">ประชากรผู้ขาย</span></div>
+          <div class="sub-value">0.76 <span class="unit"><span class="i18n" data-en="Million people">ล้านคน</span></span></div>
         </div>
       </div>
     </div>
 
-    <div class="value-note">เป็นค่าคงที่ ไม่ตอบสนองต่อตัวกรองด้านบน</div>
+    <div class="value-note"><span class="i18n" data-en="This is a constant value and does not respond to the filters above">เป็นค่าคงที่ ไม่ตอบสนองต่อตัวกรองด้านบน</span></div>
   </section>
 
   <section id="channelvalue" class="value-section">
-    <div class="value-title">
-      โครงสร้างมูลค่า e-Commerce ในปี 2569 ถูกขับเคลื่อนผ่านช่องทาง <b>E-Marketplace</b> เป็นอันดับหนึ่งด้วยมูลค่า <b>2.45 ล้านล้านบาท (48.80%)</b> และตามมาด้วย <b>Social Media</b> ที่มูลค่า <b>1.96 ล้านล้านบาท (39.00%)</b>
+    <div class="value-title" data-en-html="In 2026, e-Commerce value structure was driven mainly by <b>E-Marketplace</b>, ranking first at <b>2.45 trillion THB (48.80%)</b>, followed by <b>Social Media</b> at <b>1.96 trillion THB (39.00%)</b>">
+      โครงสร้างมูลค่า e-Commerce ในปี 2569 ถูกขับเคลื่อนผ่านช่องทาง <b>E-Marketplace</b> เป็นอันดับหนึ่งด้วยมูลค่า <b>2.45 <span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span> (48.80%)</b> และตามมาด้วย <b>Social Media</b> ที่มูลค่า <b>1.96 <span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span> (39.00%)</b>
     </div>
 
-    <div class="value-banner">มูลค่าธุรกรรมทางอิเล็กทรอนิกส์ภาคครัวเรือน แยกตามช่องทางการขาย</div>
+    <div class="value-banner"><span class="i18n" data-en="Household Electronic Transaction Value by Sales Channel">มูลค่าธุรกรรมทางอิเล็กทรอนิกส์ภาคครัวเรือน แยกตามช่องทางการขาย</span></div>
 
     <div class="chanval-grid">
       <div class="chanval-card">
-        <h3>สัดส่วนมูลค่า e-Commerce ปี 2569 จำแนกตามช่องทาง</h3>
-        <div class="hint">หน่วย: ล้านล้านบาท</div>
+        <h3><span class="i18n" data-en="e-Commerce Value Share 2026 by Channel">สัดส่วนมูลค่า e-Commerce ปี 2569 จำแนกตามช่องทาง</span></h3>
+        <div class="hint"><span class="i18n" data-en="Unit: Trillion THB">หน่วย: <span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span></span></div>
         <div class="chanval-donut-wrap">
           <canvas id="chartChannelDonut"></canvas>
           <div class="chanval-donut-center">
             <div class="num">5.01</div>
-            <div class="unit">ล้านล้านบาท</div>
+            <div class="unit"><span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span></div>
             <div class="trend">▲ +37.54% YoY</div>
           </div>
         </div>
@@ -557,8 +555,8 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
       </div>
 
       <div class="chanval-card">
-        <h3>เปรียบเทียบมูลค่า e-Commerce จำแนกตามช่องทาง</h3>
-        <div class="hint">ปี 2568 (สีอ่อน) เทียบกับปี 2569 (สีเข้ม) · หน่วย: ล้านล้านบาท</div>
+        <h3><span class="i18n" data-en="e-Commerce Value Comparison by Channel">เปรียบเทียบมูลค่า e-Commerce จำแนกตามช่องทาง</span></h3>
+        <div class="hint"><span class="i18n" data-en="2025 (light) vs. 2026 (dark) · Unit: Trillion THB">ปี 2568 (สีอ่อน) เทียบกับปี 2569 (สีเข้ม) · <span class="i18n" data-en="Unit: Trillion THB">หน่วย: <span class="i18n" data-en="Trillion THB">ล้านล้านบาท</span></span></span></div>
         <div class="chanval-bar-wrap"><canvas id="chartChannelBar"></canvas></div>
         <div class="chanval-yoy-row">
           <div class="item">▲ +46.71%</div>
@@ -569,15 +567,15 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
       </div>
     </div>
 
-    <div class="value-note">เป็นค่าคงที่ ไม่ตอบสนองต่อตัวกรองด้านบน</div>
+    <div class="value-note"><span class="i18n" data-en="This is a constant value and does not respond to the filters above">เป็นค่าคงที่ ไม่ตอบสนองต่อตัวกรองด้านบน</span></div>
 
     <div style="margin:28px 0 16px; padding-top:20px; border-top:1px dashed var(--border);">
-      <h3 style="font-size:16px; margin-bottom:4px;">ช่องทางการขาย: ออนไลน์ vs. ออฟไลน์</h3>
-      <div class="hint" style="margin-bottom:14px;">E-Marketplace และ Social Media ครองสัดส่วนรายได้ออนไลน์ ส่วนออฟไลน์ยังพึ่งพาหน้าร้านเป็นหลัก · ข้อมูลตามตัวกรองด้านบน</div>
+      <h3 style="font-size:16px; margin-bottom:4px;"><span class="i18n" data-en="Sales Channels: Online vs. Offline">ช่องทางการขาย: ออนไลน์ vs. ออฟไลน์</span></h3>
+      <div class="hint" style="margin-bottom:14px;"><span class="i18n" data-en="E-Marketplace and Social Media dominate online revenue share, while offline still relies mainly on physical stores · Data reflects filters above">E-Marketplace และ Social Media ครองสัดส่วนรายได้ออนไลน์ ส่วนออฟไลน์ยังพึ่งพาหน้าร้านเป็นหลัก · ข้อมูลตามตัวกรองด้านบน</span></div>
     </div>
     <div class="grid2">
-      <div class="card"><h3>สัดส่วนรายได้ออนไลน์ แยกแพลตฟอร์ม</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออนไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOnlineMix"></canvas></div></div>
-      <div class="card"><h3>สัดส่วนรายได้ออฟไลน์ แยกช่องทาง</h3><div class="hint">เฉลี่ยจากผู้มีรายได้ออฟไลน์ในกลุ่มที่กรอง</div><div class="chart-wrap" style="height:300px;"><canvas id="chartOfflineMix"></canvas></div></div>
+      <div class="card"><h3><span class="i18n" data-en="Online Revenue Share by Platform">สัดส่วนรายได้ออนไลน์ แยกแพลตฟอร์ม</span></h3><div class="hint"><span class="i18n" data-en="Average among those with online revenue in the filtered group">เฉลี่ยจากผู้มีรายได้ออนไลน์ในกลุ่มที่กรอง</span></div><div class="chart-wrap" style="height:300px;"><canvas id="chartOnlineMix"></canvas></div></div>
+      <div class="card"><h3><span class="i18n" data-en="Offline Revenue Share by Channel">สัดส่วนรายได้ออฟไลน์ แยกช่องทาง</span></h3><div class="hint"><span class="i18n" data-en="Average among those with offline revenue in the filtered group">เฉลี่ยจากผู้มีรายได้ออฟไลน์ในกลุ่มที่กรอง</span></div><div class="chart-wrap" style="height:300px;"><canvas id="chartOfflineMix"></canvas></div></div>
     </div>
   </section>
 
@@ -847,7 +845,7 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
 </main>
 
 <footer>
-  <span class="i18n" data-en="Source: ETDA — Household E-Commerce Value Measurement and Digital Transition Status Project (unregistered entrepreneurs) · Data as of June 29, 2026">ที่มา: ETDA — โครงการวัดมูลค่าพาณิชย์อิเล็กทรอนิกส์และสถานะการเปลี่ยนผ่านด้านดิจิทัล ภาคครัวเรือน (ผู้ประกอบการที่ไม่ได้จดทะเบียนนิติบุคคล) · ข้อมูล ณ วันที่ 29 มิถุนายน 2569</span>
+  <span class="i18n" data-en="Source: ETDA — Household E-Commerce Value Measurement and Digital Transformation Status Project (unregistered entrepreneurs) · Data as of June 29, 2026">ที่มา: ETDA — โครงการวัดมูลค่าพาณิชย์อิเล็กทรอนิกส์และสถานะการเปลี่ยนผ่านด้านดิจิทัล ภาคครัวเรือน (ผู้ประกอบการที่ไม่ได้จดทะเบียนนิติบุคคล) · ข้อมูล ณ วันที่ 29 มิถุนายน 2569</span>
 </footer>
 
   </div>
@@ -1426,29 +1424,41 @@ function renderDmiHero(rows){
   charts.selfDmi = new Chart(document.getElementById('chartSelfDmi'), {
     type:'bar',
     data:{ labels: sd.map(d=>d.name.replace('ระดับ ','L')), datasets:[
-      { label:'คะแนน DMI จริงเฉลี่ย', data: sd.map(d=>d.avgActualDmi), backgroundColor: sd.map(d=>dmiLevel(d.avgActualDmi).color), borderRadius:5, maxBarThickness:34 }
+      { label: state.lang==='en'?'Avg. Actual DMI Score':'คะแนน DMI จริงเฉลี่ย', data: sd.map(d=>d.avgActualDmi), backgroundColor: sd.map(d=>dmiLevel(d.avgActualDmi).color), borderRadius:5, maxBarThickness:34 }
     ]},
     options:{ responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:22}},
       plugins:{ legend:{display:false},
         tooltip:{callbacks:{
-          label:c=>'DMI จริงเฉลี่ย: '+c.parsed.y.toFixed(2)+' / 4.0',
-          afterLabel:c=>'จำนวนผู้ตอบ: '+fmtNum(sd[c.dataIndex].count)+' ราย'
-        }}
+          label:c=> (state.lang==='en'?'Avg. actual DMI: ':'DMI จริงเฉลี่ย: ')+c.parsed.y.toFixed(2)+' / 4.0',
+          afterLabel:c=>{
+            const lv = dmiLevel(sd[c.dataIndex].avgActualDmi);
+            return [(state.lang==='en'?'Actual level: ':'ระดับจริง: ')+lv.name,
+                    (state.lang==='en'?'Respondents: ':'จำนวนผู้ตอบ: ')+fmtNum(sd[c.dataIndex].count)+(state.lang==='en'?'':' ราย')];
+          }
+        }},
+        datalabels:{
+          display:true, anchor:'end', align:'top', clamp:true,
+          color:c=>dmiLevel(sd[c.dataIndex].avgActualDmi).color,
+          font:{family:baseFont(), size:10.5, weight:700},
+          formatter:(v,c)=>dmiLevel(sd[c.dataIndex].avgActualDmi).name
+        }
       },
-      scales:{ x:{grid:{display:false}, ticks:{font:{size:10, family:baseFont()}}}, y:{grid:{color:C.grid}, max:4, title:{display:true,text:'คะแนน DMI จริงเฉลี่ย',color:C.textDim,font:{size:10.5}}} }
+      scales:{ x:{grid:{display:false}, ticks:{font:{size:10, family:baseFont()}}}, y:{grid:{color:C.grid}, max:4, title:{display:true,text: state.lang==='en'?'Avg. Actual DMI Score':'คะแนน DMI จริงเฉลี่ย',color:C.textDim,font:{size:10.5}}} }
     }
   });
   if(sd.length>=2){
     const lowest = sd[0], highest = sd[sd.length-1];
     const hLv = dmiLevel(highest.avgActualDmi);
+    const lLv = dmiLevel(lowest.avgActualDmi);
     if(state.lang==='en'){
       setInsightCard('selfDmi', hLv.color,
         'Gap between perception and actual readiness',
-        'Even the highest self-raters score only <b style="color:'+hLv.color+'">'+highest.avgActualDmi.toFixed(2)+'/4.0</b> actual (group range: '+lowest.avgActualDmi.toFixed(2)+'–'+highest.avgActualDmi.toFixed(2)+')');
+        'Even the highest self-raters average only <b style="color:'+hLv.color+'">'+highest.avgActualDmi.toFixed(2)+'/4.0</b> — actual level: <b style="color:'+hLv.color+'">'+hLv.name+'</b> (lowest group: '+lLv.name+', '+lowest.avgActualDmi.toFixed(2)+')');
     } else {
       setInsightCard('selfDmi', hLv.color,
         'ช่องว่างระหว่างการรับรู้กับความพร้อมจริง',
-        'แม้ประเมินตนเองสูงสุด คะแนนจริงอยู่เพียง <b style="color:'+hLv.color+'">'+highest.avgActualDmi.toFixed(2)+'/4.0</b> (กลุ่มทั้งหมดอยู่ระหว่าง '+lowest.avgActualDmi.toFixed(2)+'–'+highest.avgActualDmi.toFixed(2)+')');
+        'แม้ประเมินตนเองสูงสุด คะแนนจริงเฉลี่ยอยู่เพียง <b style="color:'+hLv.color+'">'+highest.avgActualDmi.toFixed(2)+'/4.0</b> — ระดับจริงคือ <b style="color:'+hLv.color+'">'+hLv.name+'</b> (กลุ่มต่ำสุด: '+lLv.name+' '+lowest.avgActualDmi.toFixed(2)+')');
     }
   } else {
     setInsightCard('selfDmi', C.teal, null);
@@ -1979,17 +1989,30 @@ function initLangStatic(){
   document.querySelectorAll('option[data-en]').forEach(el=>{
     if(!el.hasAttribute('data-th')) el.setAttribute('data-th', el.textContent);
   });
+  document.querySelectorAll('[data-en-html]').forEach(el=>{
+    if(!el.hasAttribute('data-th-html')) el.setAttribute('data-th-html', el.innerHTML);
+  });
 }
 
 function applyLang(lang){
   state.lang = lang;
   document.documentElement.setAttribute('lang', lang);
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-lang')===lang));
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    const isActive = b.getAttribute('data-lang')===lang;
+    b.classList.toggle('active', isActive);
+    b.style.background = isActive ? '#fff' : 'none';
+    b.style.color = isActive ? '#1A2233' : '#8891A0';
+    b.style.fontWeight = isActive ? '800' : '700';
+    b.style.boxShadow = isActive ? '0 1px 4px rgba(20,33,61,0.12), 0 0 0 1px rgba(20,33,61,0.03)' : 'none';
+  });
   document.querySelectorAll('.i18n').forEach(el=>{
     el.textContent = lang==='en' ? el.getAttribute('data-en') : el.getAttribute('data-th');
   });
   document.querySelectorAll('option[data-en]').forEach(el=>{
     el.textContent = lang==='en' ? el.getAttribute('data-en') : el.getAttribute('data-th');
+  });
+  document.querySelectorAll('[data-en-html]').forEach(el=>{
+    el.innerHTML = lang==='en' ? el.getAttribute('data-en-html') : el.getAttribute('data-th-html');
   });
   populateSelect('fRegion', L('REGIONS'));
   populateSelect('fGen', L('GENS'));
