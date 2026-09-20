@@ -1419,17 +1419,18 @@ function renderDmiHero(rows){
     wrap.appendChild(row);
   });
 
-  const sd = computeSelfDmiVsActual(rows).filter(d=>d.count>0);
+  const sd = computeSelfDmiVsActual(rows).map((d,i)=>({...d, selfLevelIdx:i})).filter(d=>d.count>0);
   killChart('selfDmi');
   charts.selfDmi = new Chart(document.getElementById('chartSelfDmi'), {
     type:'bar',
-    data:{ labels: sd.map(d=>d.name.replace('ระดับ ','L')), datasets:[
+    data:{ labels: sd.map(d=>[(state.lang==='en'?'Self-assessed':'ประเมินตนเอง'), DMI_LEVELS[d.selfLevelIdx].name]), datasets:[
       { label: state.lang==='en'?'Avg. Actual DMI Score':'คะแนน DMI จริงเฉลี่ย', data: sd.map(d=>d.avgActualDmi), backgroundColor: sd.map(d=>dmiLevel(d.avgActualDmi).color), borderRadius:5, maxBarThickness:34 }
     ]},
     options:{ responsive:true, maintainAspectRatio:false,
-      layout:{padding:{top:22}},
+      layout:{padding:{top:32}},
       plugins:{ legend:{display:false},
         tooltip:{callbacks:{
+          title:c=> sd[c[0].dataIndex].name,
           label:c=> (state.lang==='en'?'Avg. actual DMI: ':'DMI จริงเฉลี่ย: ')+c.parsed.y.toFixed(2)+' / 4.0',
           afterLabel:c=>{
             const lv = dmiLevel(sd[c.dataIndex].avgActualDmi);
@@ -1441,10 +1442,13 @@ function renderDmiHero(rows){
           display:true, anchor:'end', align:'top', clamp:true,
           color:c=>dmiLevel(sd[c.dataIndex].avgActualDmi).color,
           font:{family:baseFont(), size:10.5, weight:700},
-          formatter:(v,c)=>dmiLevel(sd[c.dataIndex].avgActualDmi).name
+          formatter:(v,c)=>{
+            const lv = dmiLevel(sd[c.dataIndex].avgActualDmi);
+            return [(state.lang==='en'?'Actual: ':'ผลจริง: ')+lv.name, sd[c.dataIndex].avgActualDmi.toFixed(2)+' / 4.00'];
+          }
         }
       },
-      scales:{ x:{grid:{display:false}, ticks:{font:{size:10, family:baseFont()}}}, y:{grid:{color:C.grid}, max:4, title:{display:true,text: state.lang==='en'?'Avg. Actual DMI Score':'คะแนน DMI จริงเฉลี่ย',color:C.textDim,font:{size:10.5}}} }
+      scales:{ x:{grid:{display:false}, ticks:{font:{size:10, family:baseFont()}}, title:{display:true,text: state.lang==='en'?'Self-assessed level':'ระดับที่ผู้ประกอบการประเมินตนเอง',color:C.textDim,font:{size:10.5}}}, y:{grid:{color:C.grid}, max:4, title:{display:true,text: state.lang==='en'?'Avg. Actual DMI Score':'คะแนน DMI จริงเฉลี่ย',color:C.textDim,font:{size:10.5}}} }
     }
   });
   if(sd.length>=2){
