@@ -116,6 +116,28 @@ const DASHBOARD_CSS = `
     box-shadow:0 1px 4px rgba(20,33,61,0.12), 0 0 0 1px rgba(20,33,61,0.03);
   }
 
+  .scale-toggle{
+    display:flex; align-items:center; background:#F0F1F4; border:1px solid var(--border-soft);
+    border-radius:22px; padding:4px; gap:1px; flex-shrink:0;
+  }
+  .scale-btn{
+    font-family:'Noto Sans Thai'; font-size:11.5px; font-weight:700; letter-spacing:0.02em;
+    padding:6px 14px; border-radius:18px;
+    border:none; background:none; color:var(--text-dim); cursor:pointer;
+    transition:background .2s ease, color .2s ease, box-shadow .2s ease;
+  }
+  .scale-btn:hover{ color:var(--text); }
+  .scale-btn.active{
+    background:#fff; color:var(--text); font-weight:800;
+    box-shadow:0 1px 4px rgba(20,33,61,0.12), 0 0 0 1px rgba(20,33,61,0.03);
+  }
+  .stat-chip{
+    display:inline-flex; align-items:center; gap:6px; font-family:'Noto Sans Thai'; font-size:12px;
+    background:#fff; border:1px solid var(--border-soft); border-radius:20px; padding:7px 14px; color:var(--text-mid);
+  }
+  .stat-chip b{ color:var(--text); font-weight:800; }
+  .scatter-note{ font-size:11px; color:var(--text-dim); margin-top:6px; }
+
   .hero{position:relative; overflow:hidden; padding:48px 32px 40px; border-bottom:1px solid var(--border-soft);}
   .hero-grid{
     position:absolute; inset:0; opacity:0.6;
@@ -626,8 +648,8 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
     </div>
 
     <div style="margin:28px 0 16px; padding-top:20px; border-top:1px dashed var(--border);">
-      <h3 style="font-size:16px; margin-bottom:4px;"><span class="i18n" data-en="Does DMI Actually Affect Online Revenue?">DMI ส่งผลต่อรายได้ออนไลน์จริงหรือไม่</span></h3>
-      <div class="hint" style="margin-bottom:14px;"><span class="i18n" data-en="Comparing Digital Maturity with actual online revenue">เปรียบเทียบ Digital Maturity กับรายได้ออนไลน์จริง</span></div>
+      <h3 style="font-size:16px; margin-bottom:4px;"><span class="i18n" data-en="Is DMI Associated with Online Revenue?">DMI สัมพันธ์กับรายได้ออนไลน์หรือไม่?</span></h3>
+      <div class="hint" style="margin-bottom:14px;"><span class="i18n" data-en="Analyzing the relationship between Digital Maturity level and sellers' online revenue">วิเคราะห์ความสัมพันธ์ระหว่างระดับ Digital Maturity กับรายได้ออนไลน์ของผู้ขาย</span></div>
     </div>
     <div class="grid2">
       <div class="card"><h3><span class="i18n" data-en="Average Digital Maturity Score by Region">คะแนน Digital Maturity เฉลี่ย แยกภูมิภาค</span></h3><div class="hint"><span class="i18n" data-en="Sorted highest to lowest · out of 4.0">เรียงจากสูงสุดไปต่ำสุด · จากคะแนนเต็ม 4.0</span></div><div class="level-legend" id="dmiLevelLegendRegion"></div><div class="chart-wrap" style="height:300px;"><canvas id="chartDmiByRegion"></canvas></div><div class="insight-callout" id="dmiRegionCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="dmiRegionIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="dmiRegionLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="dmiRegionHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="dmiRegionSupport"></div></div></div></div>
@@ -638,6 +660,25 @@ const DASHBOARD_BODY_HTML = `<header class="topbar">
         <div class="chart-wrap" style="height:260px;"><canvas id="chartDmiVsRev"></canvas></div>
         <div class="insight-callout" id="dmiCorrCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="dmiCorrIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="dmiCorrLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="dmiCorrHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="dmiCorrSupport"></div></div></div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px;">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+        <div>
+          <h3><span class="i18n" data-en="Relationship Between DMI Score and Online Revenue">ความสัมพันธ์ระหว่างคะแนน DMI กับรายได้ออนไลน์</span></h3>
+          <div class="hint"><span class="i18n" data-en="Do entrepreneurs with a higher Digital Maturity score tend to earn more online revenue?">ผู้ประกอบการที่มีคะแนน Digital Maturity สูงขึ้น มีแนวโน้มสร้างรายได้ออนไลน์สูงขึ้นหรือไม่</span></div>
+        </div>
+        <div class="scale-toggle" id="dmiScatterScaleToggle">
+          <button class="scale-btn" data-scale="linear"><span class="i18n" data-en="Actual Values">ค่าจริง</span></button>
+          <button class="scale-btn active" data-scale="log">Log Scale</button>
+        </div>
+      </div>
+      <div class="chart-wrap" style="height:380px; margin-top:10px;"><canvas id="chartDmiScatter"></canvas></div>
+      <div class="scatter-note" id="dmiScatterNote"></div>
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:12px;">
+        <div class="stat-chip"><span class="i18n" data-en="Correlation (Spearman ρ):">สัมประสิทธิ์สหสัมพันธ์ (Spearman ρ):</span>&nbsp;<b id="dmiScatterSpearman">–</b></div>
+        <div class="stat-chip"><span class="i18n" data-en="n =">n =</span>&nbsp;<b id="dmiScatterN">–</b></div>
+      </div>
+      <div class="insight-callout" id="dmiScatterCard" style="display:none; margin-top:12px; padding:11px 14px; background:#FBF3E3; border-radius:10px; align-items:flex-start; gap:11px;"><div class="ic-icon" id="dmiScatterIcon">💡</div><div class="ic-body"><span style="font-family:'Noto Sans Thai'; font-size:9.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:3px;" id="dmiScatterLbl">Insight</span><div style="font-family:'Noto Sans Thai'; font-weight:700; font-size:12.5px; color:var(--text); line-height:1.4; margin-bottom:2px;" id="dmiScatterHeadline"></div><div style="font-size:11.5px; font-weight:400; color:var(--text-mid); line-height:1.55;" id="dmiScatterSupport"></div></div></div><div class="note" id="dmiScatterCausalNote" style="font-size:11px; color:var(--text-dim); line-height:1.6; margin-top:10px;"></div>
     </div>
   </section>
 
@@ -926,13 +967,42 @@ function corr(xs,ys){
   if(sx===0||sy===0) return 0;
   return cov/Math.sqrt(sx*sy);
 }
+// Average-rank transform (handles ties) used for Spearman correlation.
+function rankArray(arr){
+  const idx = arr.map((v,i)=>i).sort((a,b)=>arr[a]-arr[b]);
+  const ranks = new Array(arr.length);
+  let i=0;
+  while(i<idx.length){
+    let j=i;
+    while(j+1<idx.length && arr[idx[j+1]]===arr[idx[i]]) j++;
+    const avgRank = (i+j)/2 + 1;
+    for(let k=i;k<=j;k++) ranks[idx[k]] = avgRank;
+    i = j+1;
+  }
+  return ranks;
+}
+// Spearman rank correlation: robust to skew/outliers, preferred for revenue data.
+function spearmanCorr(xs, ys){
+  if(xs.length<2) return 0;
+  return corr(rankArray(xs), rankArray(ys));
+}
+// Simple OLS linear regression, used to draw the scatter trend line.
+function linreg(xs, ys){
+  const n=xs.length; if(n<2) return {slope:0, intercept: ys.length?avg(ys):0};
+  const mx=avg(xs), my=avg(ys);
+  let num=0, den=0;
+  for(let i=0;i<n;i++){ num+=(xs[i]-mx)*(ys[i]-my); den+=(xs[i]-mx)**2; }
+  const slope = den===0?0:num/den;
+  const intercept = my - slope*mx;
+  return {slope, intercept};
+}
 
 /* =========================================================
    FILTER ENGINE
    ========================================================= */
 let ROWS = []; // set after data loads
 let LOOKUPS = {};
-const state = { region:-1, urban:-1, gen:-1, reg:-1, lang:'th' };
+const state = { region:-1, urban:-1, gen:-1, reg:-1, lang:'th', dmiScatterScale:'log' };
 function L(key){ return (state.lang==='en' && typeof LOOKUPS_EN!=='undefined' && LOOKUPS_EN[key]) ? LOOKUPS_EN[key] : LOOKUPS[key]; }
 
 function matchRow(r, f, excludeDim){
@@ -1096,6 +1166,19 @@ function computeDmiLevelVsRev(rows){
     if(orev>=0) b.vals.push(orev);
   });
   return buckets.map(b=>({ name:b.name, color:b.color, avgOrev: avg(b.vals), n:b.n }));
+}
+
+// Respondent-level DMI score vs. online revenue, for the scatter plot (no bucketing).
+function computeDmiScatter(rows){
+  const REGIONS = L('REGIONS');
+  const pts = [];
+  rows.forEach(r=>{
+    const d = r[F.DMI], o = r[F.OREV];
+    if(d>=0 && o>=0){
+      pts.push({ dmi:d, orev:o, region: REGIONS[r[F.REGION]] || '', level: dmiLevel(d) });
+    }
+  });
+  return pts;
 }
 
 /* =========================================================
@@ -1536,40 +1619,96 @@ function renderImpact(rows){
     }
   });
 
+  // Minimum respondents per DMI level before we treat its average as displayable.
+  // Below this, a bar would rest on too few observations to read as a real average.
+  const MIN_N = 5;
   const buckets = computeDmiLevelVsRev(rows);
+  const bucketData = buckets.map(b => (b.n >= MIN_N ? b.avgOrev : null));
   killChart('dmiVsRev');
   charts.dmiVsRev = new Chart(document.getElementById('chartDmiVsRev'), {
     type:'bar',
-    data:{ labels: buckets.map(b=>b.name), datasets:[{ data: buckets.map(b=>b.avgOrev), backgroundColor: buckets.map(b=>b.color), borderRadius:6, barThickness:32 }] },
+    data:{ labels: buckets.map(b=>b.name), datasets:[{ data: bucketData, backgroundColor: buckets.map(b=>b.color), borderRadius:6, barThickness:32 }] },
     options:{ responsive:true, maintainAspectRatio:false,
+      layout:{padding:{top:34}},
       plugins:{ legend:{display:false},
-        tooltip:{callbacks:{ label:c=> c.parsed.y>0 ? 'รายได้ออนไลน์เฉลี่ย: '+fmtNum(c.parsed.y)+' บาท' : 'ยังไม่มีผู้ตอบในระดับนี้', afterLabel:c=>'จำนวนผู้ตอบ: '+fmtNum(buckets[c.dataIndex].n)+' ราย' }}
+        tooltip:{callbacks:{
+          label:c=>{
+            const b = buckets[c.dataIndex];
+            if(b.n < MIN_N) return state.lang==='en' ? 'Insufficient sample size' : 'ข้อมูลไม่เพียงพอ';
+            return (state.lang==='en'?'Avg. online revenue: ':'รายได้ออนไลน์เฉลี่ย: ')+fmtNum(c.parsed.y)+(state.lang==='en'?' THB/month':' บาท/เดือน');
+          },
+          afterLabel:c=> (state.lang==='en'?'Respondents: ':'จำนวนผู้ตอบ: ')+fmtNum(buckets[c.dataIndex].n)+(state.lang==='en'?'':' ราย')
+        }},
+        datalabels:{
+          display:true, anchor:'end', align:'top', clamp:true,
+          color:c=>buckets[c.dataIndex].color,
+          font:{family:baseFont(), size:10.5, weight:700},
+          formatter:(v,c)=>{
+            const b = buckets[c.dataIndex];
+            if(b.n < MIN_N) return '';
+            return [fmtNum(v)+(state.lang==='en'?' THB/mo':' บาท/เดือน'), 'n = '+fmtNum(b.n)];
+          }
+        }
       },
-      scales:{ x:{grid:{display:false}, ticks:{font:{size:10.5, family:baseFont()}}, title:{display:true,text:'ระดับ Digital Maturity',color:C.textDim,font:{size:10.5}}},
-               y:{grid:{color:C.grid}, ticks:{callback:v=>fmtNum(v), font:{family:baseFont()}}, title:{display:true,text:'รายได้ออนไลน์ บาท / เดือน',color:C.textDim,font:{size:10.5}}} }
-    }
+      scales:{ x:{grid:{display:false}, ticks:{font:{size:10.5, family:baseFont()}}, title:{display:true,text: state.lang==='en'?'Digital Maturity Level':'ระดับ Digital Maturity',color:C.textDim,font:{size:10.5}}},
+               y:{grid:{color:C.grid}, ticks:{callback:v=>fmtNum(v), font:{family:baseFont()}}, title:{display:true,text: state.lang==='en'?'Avg. Online Revenue (THB/month)':'รายได้ออนไลน์เฉลี่ย (บาท/เดือน)',color:C.textDim,font:{size:10.5}}} }
+    },
+    plugins:[{
+      id:'dmiVsRevInsufficient',
+      afterDatasetsDraw(chart){
+        const {ctx, chartArea, scales} = chart;
+        if(!chartArea) return;
+        ctx.save();
+        ctx.font = "700 10.5px 'Noto Sans Thai'";
+        ctx.textAlign = 'center';
+        ctx.fillStyle = C.textDim;
+        buckets.forEach((b,i)=>{
+          if(b.n < MIN_N){
+            const x = scales.x.getPixelForValue(i);
+            const yTop = chartArea.top + 24;
+            ctx.fillText(state.lang==='en' ? 'Insufficient data' : 'ข้อมูลไม่เพียงพอ', x, yTop);
+            ctx.fillText('n = '+fmtNum(b.n), x, yTop+14);
+          }
+        });
+        ctx.restore();
+      }
+    }]
   });
 
-  const dmiXs=[], orevYs=[];
-  rows.forEach(r=>{ if(r[F.DMI]>=0 && r[F.OREV]>=0){ dmiXs.push(r[F.DMI]); orevYs.push(r[F.OREV]); } });
-  const r = corr(dmiXs, orevYs);
-  const absR = Math.abs(r);
-  const corrColor = absR<0.1 ? C.textDim : (r>=0?C.teal:C.coral);
-  const strength = absR<0.1 ? 'แทบไม่มีความสัมพันธ์' : absR<0.3 ? 'มีความสัมพันธ์อ่อน' : absR<0.5 ? 'มีความสัมพันธ์ปานกลาง' : 'มีความสัมพันธ์ชัดเจน';
-  const strengthEn = absR<0.1 ? 'shows almost no correlation' : absR<0.3 ? 'shows a weak correlation' : absR<0.5 ? 'shows a moderate correlation' : 'shows a clear correlation';
-  if(dmiXs.length>1){
-    if(state.lang==='en'){
-      setInsightCard('dmiCorr', corrColor,
-        'DMI '+strengthEn+' with online revenue',
-        'Correlation coefficient <b style="color:'+corrColor+'">r ≈ '+r.toFixed(2)+'</b> — DMI reflects digital readiness, not a direct guarantee of higher revenue');
+  // Chart 2 insight: describe how close/apart the sufficiently-sampled group averages are.
+  // Wording is chosen from the data — never a fixed causal claim.
+  const sufficientBuckets = buckets.filter(b=>b.n>=MIN_N);
+  if(sufficientBuckets.length>=2){
+    const vals = sufficientBuckets.map(b=>b.avgOrev);
+    const maxV = Math.max(...vals), minV = Math.min(...vals), meanV = avg(vals);
+    const relSpread = meanV>0 ? (maxV-minV)/meanV : 0;
+    const CLOSE_THRESHOLD = 0.15; // <=15% relative spread across group averages reads as "close"
+    if(relSpread <= CLOSE_THRESHOLD){
+      if(state.lang==='en'){
+        setInsightCard('dmiCorr', C.textDim,
+          'Avg. online revenue is similar across DMI levels',
+          'Across the sample, the average online revenue of sellers is similar across Digital Maturity levels, so no clear trend was found showing that a higher DMI level is associated with higher average online revenue.');
+      } else {
+        setInsightCard('dmiCorr', C.textDim,
+          'รายได้ออนไลน์เฉลี่ยใกล้เคียงกันในแต่ละระดับ DMI',
+          'จากกลุ่มตัวอย่าง พบว่ารายได้ออนไลน์เฉลี่ยของผู้ขายในแต่ละระดับ Digital Maturity อยู่ในระดับใกล้เคียงกัน จึงยังไม่พบแนวโน้มที่ชัดเจนว่าระดับ DMI ที่สูงขึ้นสัมพันธ์กับรายได้ออนไลน์เฉลี่ยที่สูงขึ้น');
+      }
     } else {
-      setInsightCard('dmiCorr', corrColor,
-        'DMI '+strength+'กับรายได้ออนไลน์',
-        'ค่าสัมประสิทธิ์ <b style="color:'+corrColor+'">r ≈ '+r.toFixed(2)+'</b> — DMI สะท้อนความพร้อมด้านดิจิทัล ไม่ได้รับประกันรายได้ที่สูงขึ้นโดยตรง');
+      if(state.lang==='en'){
+        setInsightCard('dmiCorr', C.gold,
+          'Avg. online revenue differs across DMI levels',
+          'Across the sample, average online revenue varies by Digital Maturity level. This comparison alone, however, does not establish that a higher DMI level causes higher revenue — see the correlation below.');
+      } else {
+        setInsightCard('dmiCorr', C.gold,
+          'รายได้ออนไลน์เฉลี่ยแตกต่างกันระหว่างระดับ DMI',
+          'จากกลุ่มตัวอย่าง พบว่ารายได้ออนไลน์เฉลี่ยของผู้ขายแตกต่างกันไปในแต่ละระดับ Digital Maturity อย่างไรก็ตาม การเปรียบเทียบนี้เพียงอย่างเดียวยังไม่สามารถสรุปได้ว่าระดับ DMI ที่สูงขึ้นเป็นสาเหตุของรายได้ที่สูงขึ้น — ดูค่าสหสัมพันธ์ด้านล่าง');
+      }
     }
   } else {
-    setInsightCard('dmiCorr', corrColor, null);
+    setInsightCard('dmiCorr', C.textDim, null);
   }
+
+  renderDmiScatter(rows);
 
   if(regionDmi.length && regionDmi[0].count>0){
     const top = regionDmi[0];
@@ -1586,6 +1725,153 @@ function renderImpact(rows){
   } else {
     setInsightCard('dmiRegion', C.gold, null);
   }
+}
+
+// Respondent-level DMI score vs. online revenue scatter, with trend line and Spearman correlation.
+function renderDmiScatter(rows){
+  const scale = state.dmiScatterScale || 'log';
+  const allPts = computeDmiScatter(rows);
+  // Log scale can't plot revenue = 0; excluded only for that view, and disclosed via the note below the chart.
+  const pts = scale==='log' ? allPts.filter(p=>p.orev>0) : allPts;
+  const excludedZero = scale==='log' ? allPts.length - pts.length : 0;
+
+  const xs = pts.map(p=>p.dmi);
+  const ys = pts.map(p=>p.orev);
+  const rho = spearmanCorr(xs, ys);
+
+  const spearmanEl = document.getElementById('dmiScatterSpearman');
+  const nEl = document.getElementById('dmiScatterN');
+  if(spearmanEl) spearmanEl.textContent = pts.length>1 ? rho.toFixed(2) : '–';
+  if(nEl) nEl.textContent = fmtNum(pts.length);
+
+  const noteEl = document.getElementById('dmiScatterNote');
+  if(noteEl){
+    noteEl.textContent = (scale==='log' && excludedZero>0)
+      ? (state.lang==='en'
+          ? 'Log scale excludes '+fmtNum(excludedZero)+' respondent(s) with online revenue = 0 THB (shown on "Actual Values")'
+          : 'มุมมอง Log scale ไม่รวมผู้ตอบ '+fmtNum(excludedZero)+' รายที่มีรายได้ออนไลน์ = 0 บาท (ดูได้ในมุมมอง "ค่าจริง")')
+      : '';
+  }
+
+  // Trend line: OLS on (x, y) for the linear view, or on (x, ln y) for the log view so the
+  // fitted line still renders straight against a logarithmic y-axis.
+  let trendPts = [];
+  if(xs.length>=2){
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    if(scale==='log'){
+      const logYs = ys.map(v=>Math.log(v));
+      const {slope, intercept} = linreg(xs, logYs);
+      trendPts = [minX, maxX].map(x=>({x, y: Math.exp(intercept + slope*x)}));
+    } else {
+      const {slope, intercept} = linreg(xs, ys);
+      trendPts = [minX, maxX].map(x=>({x, y: intercept + slope*x}));
+    }
+  }
+
+  const yAxisTitle = state.lang==='en'
+    ? ('Online Revenue (THB'+(scale==='log'?', log scale)':')'))
+    : ('รายได้ออนไลน์ (บาท'+(scale==='log'?', สเกล Log)':')'));
+
+  killChart('dmiScatter');
+  charts.dmiScatter = new Chart(document.getElementById('chartDmiScatter'), {
+    data:{ datasets:[
+      {
+        type:'scatter',
+        label: state.lang==='en'?'Respondents':'ผู้ตอบแบบสำรวจ',
+        data: pts.map(p=>({x:p.dmi, y:p.orev, level:p.level, region:p.region})),
+        backgroundColor: pts.map(p=>p.level.color+'CC'),
+        pointRadius:4, pointHoverRadius:6, order:2
+      },
+      {
+        type:'line',
+        label: state.lang==='en'?'Trend':'แนวโน้ม',
+        data: trendPts, borderColor: C.gold, borderWidth:2, borderDash:[6,4], pointRadius:0,
+        fill:false, tension:0, order:1
+      }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, datalabels:{display:false},
+        tooltip:{
+          filter: ctx=>ctx.datasetIndex===0,
+          callbacks:{
+            title: ()=> '',
+            label:c=>{
+              const p = c.raw;
+              return [
+                (state.lang==='en'?'DMI score: ':'คะแนน DMI: ')+p.x.toFixed(2)+' / 4.00',
+                (state.lang==='en'?'Level: ':'ระดับ: ')+p.level.name,
+                (state.lang==='en'?'Online revenue: ':'รายได้ออนไลน์: ')+fmtNum(p.y)+(state.lang==='en'?' THB/month':' บาท/เดือน'),
+                (state.lang==='en'?'Region: ':'ภูมิภาค: ')+p.region
+              ];
+            }
+          }
+        }
+      },
+      scales:{
+        x:{ min:0, max:4, grid:{color:C.grid}, ticks:{font:{family:baseFont()}},
+            title:{display:true,text: state.lang==='en'?'DMI Score (0–4)':'คะแนน Digital Maturity (0–4)',color:C.textDim,font:{size:10.5}} },
+        y:{ type: scale==='log' ? 'logarithmic' : 'linear', grid:{color:C.grid},
+            ticks:{callback:v=>fmtNum(v), font:{family:baseFont()}},
+            title:{display:true,text:yAxisTitle,color:C.textDim,font:{size:10.5}} }
+      }
+    }
+  });
+
+  // Correlation interpretation: wording depends only on the sign/strength actually computed — never a fixed claim.
+  const absRho = Math.abs(rho);
+  const rhoColor = pts.length<2 ? C.textDim : (absRho<0.1 ? C.textDim : (rho>=0 ? C.teal : C.coral));
+  const noteEl2 = document.getElementById('dmiScatterCausalNote');
+  if(pts.length>=2){
+    const dir = rho>=0 ? 'positive' : 'negative';
+    let headline, strengthTh, strengthEn, implTh, implEn;
+    if(absRho<0.1){
+      strengthTh = 'ในระดับต่ำมาก'; strengthEn = 'very low';
+      headline = state.lang==='en'
+        ? 'Higher Digital Maturity does not clearly translate into higher online revenue'
+        : 'ระดับ Digital Maturity ที่สูงขึ้น ยังไม่สะท้อนรายได้ออนไลน์ที่สูงขึ้นอย่างชัดเจน';
+      implTh = 'สะท้อนว่า รายได้ออนไลน์อาจเกี่ยวข้องกับปัจจัยอื่นร่วมด้วย เช่น ขนาดธุรกิจ ประเภทธุรกิจ และสัดส่วนการดำเนินธุรกิจผ่านช่องทางออนไลน์';
+      implEn = 'suggesting online revenue may depend on other factors as well, such as business size, business type, and the share of operations conducted online';
+    } else {
+      const level = absRho<0.3 ? 'weak' : absRho<0.5 ? 'moderate' : 'strong';
+      const levelTh = absRho<0.3 ? 'อ่อน' : absRho<0.5 ? 'ปานกลาง' : 'สูง';
+      strengthTh = 'ในระดับ'+levelTh+(dir==='positive'?'เชิงบวก':'เชิงลบ');
+      strengthEn = level+' '+dir;
+      const degreeTh = level==='weak' ? 'เล็กน้อย' : level==='moderate' ? 'ในระดับปานกลาง' : 'อย่างชัดเจน';
+      headline = state.lang==='en'
+        ? 'Higher Digital Maturity is '+(level==='weak'?'slightly':level==='moderate'?'moderately':'clearly')+' associated with '+(dir==='positive'?'higher':'lower')+' online revenue'
+        : 'ระดับ Digital Maturity ที่สูงขึ้น '+(dir==='positive'?'สัมพันธ์กับรายได้ออนไลน์ที่สูงขึ้น':'สัมพันธ์กับรายได้ออนไลน์ที่ลดลง')+degreeTh;
+      implTh = dir==='positive'
+        ? 'สะท้อนว่าผู้ประกอบการที่มีคะแนน DMI สูงขึ้นมีแนวโน้มสร้างรายได้ออนไลน์สูงขึ้นตามไปด้วย'
+        : 'สะท้อนว่าผู้ประกอบการที่มีคะแนน DMI สูงขึ้นมีแนวโน้มสร้างรายได้ออนไลน์ต่ำลง ซึ่งอาจเกี่ยวข้องกับปัจจัยอื่นร่วมด้วย';
+      implEn = dir==='positive'
+        ? 'suggesting sellers with higher DMI scores tend to generate higher online revenue as well'
+        : 'suggesting sellers with higher DMI scores tend to generate lower online revenue, which may involve other contributing factors';
+    }
+    const support = state.lang==='en'
+      ? 'Among '+fmtNum(pts.length)+' respondents, the correlation between DMI score and online revenue is '+strengthEn+' (Spearman\'s <b style="color:'+rhoColor+'">ρ ≈ '+rho.toFixed(2)+'</b>), '+implEn+'.'
+      : 'จากผู้ประกอบการ '+fmtNum(pts.length)+' ราย พบความสัมพันธ์ระหว่างคะแนน DMI และรายได้ออนไลน์'+strengthTh+' (Spearman\'s <b style="color:'+rhoColor+'">ρ ≈ '+rho.toFixed(2)+'</b>) '+implTh;
+    setInsightCard('dmiScatter', rhoColor, headline, support);
+    if(noteEl2) noteEl2.textContent = state.lang==='en'
+      ? 'Note: this reflects a statistical association only and cannot be used to confirm a cause-and-effect relationship.'
+      : 'หมายเหตุ: ผลดังกล่าวเป็นความสัมพันธ์เชิงสถิติ และไม่สามารถใช้ยืนยันความสัมพันธ์เชิงเหตุและผลได้';
+  } else {
+    setInsightCard('dmiScatter', C.textDim, null);
+    if(noteEl2) noteEl2.textContent = '';
+  }
+}
+
+function bindDmiScatterToggle(){
+  const wrap = document.getElementById('dmiScatterScaleToggle');
+  if(!wrap) return;
+  wrap.querySelectorAll('.scale-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const sc = btn.getAttribute('data-scale');
+      if(sc===state.dmiScatterScale) return;
+      state.dmiScatterScale = sc;
+      wrap.querySelectorAll('.scale-btn').forEach(b=>b.classList.toggle('active', b===btn));
+      renderDmiScatter(filterRows(null));
+    });
+  });
 }
 
 /* ---- 08 Selling Regularity + Cost Structure ---- */
@@ -2055,6 +2341,7 @@ function initDashboard(){
   renderValueDonut();
   renderChannelValueCharts();
   bindFilters();
+  bindDmiScatterToggle();
   renderAll();
   initScrollSpy();
   initLangToggle();
